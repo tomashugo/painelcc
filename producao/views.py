@@ -286,7 +286,8 @@ def stats(request):
 
    #return HttpResponse(a)
    
-   versao = request.GET.get('versao')
+   #versao = request.GET.get('versao')
+   versao = '2.0'
 
    if versao == '2.0':
        return render(request,'producao/statsv2.0.html',{'company_session':company_session,'outputs': outputs,})
