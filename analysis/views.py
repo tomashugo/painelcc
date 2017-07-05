@@ -630,7 +630,7 @@ def form_fraude_nao_incrementada(request):
       if versao == '2.0':
          try:
             report = RelatorioFraudeNaoIncrementada.objects.get(id=id,justificado=False)
-            return render(request,'analysis/form_fraude_nao_incrementadav2.0.html',{'report':report,'form' : form,})
+            return render(request,'analysis/form_fraude_nao_incrementadav2.0.html',{'report':report,'form' : form,'company_session':company_session,})
          except RelatorioQuedaDeConsumo.DoesNotExist:
             return HttpResponse('Erro no Formulario<br><a href="/analysis/fraude_nao_incrementada/">Voltar</a>')
       else:
