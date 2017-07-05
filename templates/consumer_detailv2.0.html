@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>painel.cc - Detalhes Consumidor</title>
+
+  <!--- Site CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/site.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/grid.css">
+
+  <!--- Component CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/docs.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/table.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/popup.css">
+  <link rel="stylesheet" type="text/css" class="ui" href="/static/semantic/dist/semantic.min.css">
+
+  <!--- Component JS -->
+  <script type="text/javascript" src="/static/semantic/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/semantic/tablesort.js"></script>
+  <script type="text/javascript" src="/static/semantic/docs.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/semantic.js"></script>
+
+
+
+{% load to_exclamation %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type='text/javascript'>
+      google.charts.load('current', {'packages':['annotationchart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        data.addColumn('number', 'Consumo');
+        data.addColumn('string', 'Observacao');
+
+        {% for i in grafico %}
+        data.addRows([[new Date({{ i.ano }}, {{ i.mes }}, {{ i.dia }}), {{ i.consumo }}, {% if i.observacao %} "{{ i.observacao }}" {% else %} undefined {% endif %}]]);      
+        {% endfor %}
+
+        var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+
+        var options = {
+          displayAnnotations: true
+        };
+
+        chart.draw(data, options);
+      }
+    </script>
+
+
+
+
+  <script src="../assets/library/iframe-content.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/popup.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/transition.js"></script>
+
+  <link rel="stylesheet/less" type="text/css" href="/static/theme.less" />
+
+  <!--- Show Names -->
+  <script src="../assets/show-examples.js"></script>
+
+  <!--- Example CSS -->
+  <style>
+  body {
+    padding: 1em;
+  }
+  .ui.table {
+    table-layout: fixed;
+  }
+  </style>
+
+  <!--- Example Javascript -->
+<script type="text/javascript">
+$('.sortable.table').tablesort();
+  </script>
+</head>
+
+<body>
+
+{% include "cabecalho.html" %}
+
+<h4 class="ui top attached block header">
+   <div class="ui breadcrumb">
+     <a class="section">Home</a>
+     <i class="right chevron icon divider"></i>
+     <div class="active section">
+     Perfil de Consumidor
+   </div>
+</h4>
+
+<div class="ui bottom attached segment">
+
+
+
+<h4 class="ui horizontal divider header">
+  <i class="industry icon"></i>
+ Dados do cliente
+</h4>
+
+<table class="ui definition table">
+  <tbody>
+    <tr>
+      <td class="two wide column"><i class="suitcase icon"></i> Instala&ccedil;&atilde;o</td>
+      <td>{{ consumer.installation }}</td>
+    </tr>
+    <tr>
+      <td><i class="user icon"></i> Nome</td>
+      <td>{{ consumer.name }}</td>
+    </tr>
+    <tr>
+      <td><i class="building icon"></i> Cidade</td>
+      <td>{{ consumer.city }}</td>
+    </tr>
+    <tr>
+      <td><i class="map icon"></i> Regional</td>
+      <td>{{ consumer.region }}</td>
+    </tr>
+    <tr>
+      <td><i class="dollar icon"></i> Faturamento</td>
+      <td>{{ consumer.revenue }}</td>
+    </tr>
+    <tr>
+      <td><i class="signal icon"></i> Registros de MM</td>
+      <td>{{ consumer.history_set.count }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+ <div class="ui segment">
+ <p></p>
+ <span class="ui orange ribbon label">Hist&oacute;rico de consumo</span>
+ <center><div id='chart_div' style='width: 1000px; height: 450px;'></div></center>
+ <p></p>
+ </div>
+
+
+ {% if alarmes %} 
+ <div class="ui segment">
+ <p></p>
+ <span class="ui purple ribbon label">Alarmes Justificados</span>
+ <p></p>
+
+ {% for i in alarmes %}
+  <table class="ui definition table">
+  <tbody>
+    <tr>
+      <td class="two wide column">Analista</td>
+      <td>{{ i.analista|upper }}</td>
+    </tr>
+    <tr>
+      <td class="two wide column">Data</td>
+      <td>{{ i.data_hora }}</td>
+    </tr>
+    <tr>
+      <td>Tipo Alvo</td>
+      <td>{{ i.tipo }}</td>
+    </tr>
+    <tr>
+      <td>Refer&ecirc;ncia</td>
+      <td>{{ i.referencia }}</td>
+    </tr>
+    <tr>
+      <td>Justificativa</td>
+      <td>{{i.justificativa}}</td>
+    </tr>
+    <tr>
+      <td>Alvo Gerado</td>
+      <td>{{ i.alvo_gerado }}</td>
+    </tr>
+  </tbody>
+ </table> 
+
+ {% if i != alarmes.last %}
+ <div class="ui divider"></div>
+ {% endif %}
+
+ {% endfor %}
+
+ </div>
+
+ {% endif %}
+
+
+{% if consumer.meterhistory_set.all %}
+
+<div class="ui horizontal segments">
+    <div class="ui segment">
+       <div class="ui raised segment">
+          <span class="ui blue ribbon label">Hist&oacute;rico de medidores</span>
+
+{% for meter in consumer.meterhistory_set.all %}
+
+<table class="ui definition table">
+  <tbody>
+    <tr>
+      <td class="two wide column">Medidor</td>
+      <td>{{ meter.meter.serial }}</td>
+    </tr>
+    <tr>
+      <td>Desde</td>
+      <td>{{ meter.since|date:"d/m/Y" }}</td>
+    </tr>
+    <tr>
+      <td>At&eacute;</td>
+      <td>{{ meter.until|date:"d/m/Y" }}</td>
+    </tr>
+  </tbody>
+</table>    
+
+{% if meter != consumer.meterhistory_set.all.last %}
+<div class="ui divider"></div>
+{% endif %}
+
+{% endfor %}
+
+   </div>
+{% endif %}
+    </div>
+
+
+{% if inspections %}
+    <div class="ui segment">
+       <div class="ui raised segment">
+          <span class="ui green ribbon label">Hist&oacute;rico de inspe&ccedil;&otilde;es</span>
+
+{% for insp in inspections %}
+
+<table class="ui definition table">
+  <tbody>
+    <tr>
+      <td class="two wide column">NS</td>
+      <td>{{ insp.ns }}</td>
+    </tr>
+    <tr>
+      <td>Codigo</td>
+      <td>{{ insp.code }}</td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td>{{ insp.date_time_executed|date:"d/m/Y" }}</td>
+    </tr>
+    <tr>
+      <td>Laudo</td>
+      <td>{{ insp.observation }}</td>
+    </tr>
+  </tbody>
+</table>
+
+{% if insp != inspections.last %}
+
+<div class="ui divider"></div>
+
+{% endif %}
+
+{% endfor %}
+
+
+       </div>
+{% endif %}
+    </div>
+  </div>
+
+
+
+
+
+
+
+</div>
+
+</body>
+</html>

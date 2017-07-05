@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Selecione Consumidor para modificar | Site de administração do Django</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+
+  
+  <link rel="stylesheet" type="text/css" href="/static/admin/css/changelists.css">
+  
+  
+    <script type="text/javascript" src="consumer_arquivos/a"></script>
+  
+<script type="text/javascript" src="/static/admin/css/core.js"></script>
+<script type="text/javascript" src="/static/admin/css/jquery.js"></script>
+<script type="text/javascript" src="/static/admin/css/jquery_002.js"></script>
+<script type="text/javascript" src="/static/admin/css/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="/static/admin/css/actions.js"></script>
+<script type="text/javascript" src="/static/admin/css/urlify.js"></script>
+<script type="text/javascript" src="/static/admin/css/prepopulate.js"></script>
+<script type="text/javascript" src="/static/admin/css/xregexp.js"></script>
+
+{% include "cemar_celpa.html" %}
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-list" data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            Empresa: {{ company_session }} /
+
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>.
+            
+            
+                
+                    <a href="http://painel.cc/">Ver o site</a> /
+                
+                           
+                
+                
+                <a href="http://painel.cc/admin/password_change/">Alterar senha</a> /
+                
+                <a href="http://painel.cc/admin/logout/">Encerrar sessão</a>
+            
+        </div>
+        
+        
+        
+    </div>
+    <!-- END Header -->
+    
+<div class="breadcrumbs">
+<a href="http://painel.cc/">Início</a>
+› Consumidores
+</div>
+
+    
+
+    
+        
+    
+
+    <!-- Content -->
+    <div id="content" class="flex">
+        
+        <h1>Selecione Consumidor para analisar</h1>
+        
+  <div id="content-main">
+    
+    
+    <div class="module filtered" id="changelist">
+      
+
+<div id="toolbar">
+<form id="changelist-search" method="post" action="">
+{% csrf_token %}
+<div>
+<label for="searchbar"><img src="consumer_arquivos/search.svg" alt="Search"></label>
+<input size="40" name="q" id="searchbar" type="text">
+<input value="Pesquisar" type="submit">
+
+
+</div>
+</form></div>
+
+<div class="results">
+<table id="result_list">
+<thead>
+<tr>
+<th scope="col" class="sortable column-name">
+   <div class="text">Instalacao</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   
+   <div class="text"><span>Nome</span></div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-city">      
+   <div class="text">Cidade</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">
+   
+     
+   
+   <div class="text">Regional</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-revenue">
+   <div class="text">Faturamento</div>
+   <div class="clear"></div>
+</th>
+</tr>
+</thead>
+<tbody>
+
+{% if latest_consumer_list %}
+   {% for consumer in latest_consumer_list %}
+<tr class="row1">
+   <th class="field-installation"><a href="{{consumer.id}}/detail">{{ consumer.installation }}</a></th>
+   <td class="field-name">{{ consumer.name }}</td>
+   <td class="field-city">{{ consumer.city }}</td>
+   <td class="field-region nowrap">{{ consumer.region }}</td>
+   <td class="field-revenue">{{ consumer.revenue }}</td>
+</tr>
+   {% endfor %}
+{% endif %}
+
+
+</tbody>
+</table>
+</div>
+
+
+<p class="paginator">
+{% if latest_consumer_list.has_previous %}
+<a href="?page={{ latest_consumer_list.previous_page_number }}&q={{query}}">Anterior</a>
+{% endif %}
+Pagina {{ latest_consumer_list.number }} de {{ latest_consumer_list.paginator.num_pages }}
+{% if latest_consumer_list.has_next %}
+<a href="?page={{ latest_consumer_list.next_page_number }}&q={{query}}">Proxima</a>
+{% endif %}
+</p>      
+      
+
+
+      </form>
+    </div>
+  </div>
+
+        
+        <br class="clear">
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+
+
+
+</body></html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Theming - Semantic</title>
+
+  <!--- Site CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/site.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/grid.css">
+
+  <!--- Component CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/docs.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/table.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/popup.css">
+  <link rel="stylesheet" type="text/css" class="ui" href="/static/semantic/dist/semantic.min.css">
+
+  <!--- Component JS -->
+  <script type="text/javascript" src="/static/semantic/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/semantic/tablesort.js"></script>
+  <script type="text/javascript" src="/static/semantic/docs.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/semantic.js"></script>
+
+  <script type="text/javascript">
+$(document).ready(function(){
+$('.ui.dropdown').dropdown();
+$('.ui.checkbox').checkbox('attach events', '.toggle.button');
+$('.ui.radio.checkbox').checkbox();
+});  </script>
+
+
+  <script src="../assets/library/iframe-content.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/popup.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/transition.js"></script>
+
+  <link rel="stylesheet/less" type="text/css" href="/static/theme.less" />
+
+  <!--- Show Names -->
+  <script src="../assets/show-examples.js"></script>
+
+  <!--- Example CSS -->
+  <style>
+  body {
+    padding: 1em;
+  }
+  .ui.table {
+    table-layout: fixed;
+  }
+  </style>
+
+  <!--- Example Javascript -->
+<script type="text/javascript">
+$('.sortable.table').tablesort();
+  </script>
+</head>
+
+<body>
+
+<h4 class="ui top attached block header">
+   <div class="ui breadcrumb">
+     <a class="section">Home</a>
+     <i class="right chevron icon divider"></i>
+     <div class="active section">
+     Perfil de Consumidor
+   </div>
+</h4>
+
+<div class="ui bottom attached segment">
+
+
+
+<h4 class="ui horizontal divider header">
+  <i class="edit icon"></i>
+ Justificar Alvo
+</h4>
+<form method="post" action="">
+<table class="ui definition table">
+  <tbody>
+    <tr>
+      <td class="two wide column"><i class="suitcase icon"></i> Instala&ccedil;&atilde;o</td>
+      <td>2000150888</td>
+    </tr>
+    <tr>
+      <td><i class="user icon"></i> Nome</td>
+      <td>ADAO GONCALVES DE OLIVEIRA JUNIOR</td>
+    </tr>
+    <tr>
+      <td><i class="calendar icon"></i> In&iacute;cio</td>
+      <td>14/03/2017 00:20</td>
+    </tr>
+    <tr>
+      <td><i class="calendar icon"></i> Fim</td>
+      <td>14/03/2017 10:05</td>
+    </tr>
+    <tr>
+      <td><i class="line chart icon"></i> Va</td>
+      <td>116.1</td>
+    </tr>
+    <tr>
+      <td><i class="line chart icon"></i> Vb</td>
+      <td>116.25</td>
+    </tr>
+    <tr>
+      <td><i class="line chart icon"></i> Vc</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <td><i class="toggle off icon"></i> Aplicar a recorr&ecirc;ncias</td>
+      <td>
+      <div class="ui toggle checkbox">
+      <input tabindex="0" class="hidden" type="checkbox">
+    </div></td>
+    </tr>
+    <tr>
+      <td><i class="radio icon"></i> Expira agora</td>
+      <td><div class="ui radio checkbox">
+      <input tabindex="0" name="expira" class="hidden" type="radio">
+    </div></td>
+    </tr>
+    <tr>
+      <td><i class="radio icon"></i> Expira em 3 meses</td>
+      <td><div class="ui radio checkbox">
+      <input tabindex="0" name="expira" class="hidden" type="radio">
+    </div></td>
+    </tr>
+    <tr>
+      <td><i class="radio icon"></i> Expira em 6 meses</td>
+      <td><div class="ui radio checkbox">
+      <input tabindex="0" name="expira" class="hidden" type="radio">
+    </div></td>
+    </tr>
+    <tr>
+      <td><i class="radio icon"></i> Expira em 12 meses</td>
+      <td><div class="ui radio checkbox">
+      <input tabindex="0" name="expira" class="hidden" type="radio">
+    </div></td>
+    </tr>
+    <tr>
+      <td><i class="comment icon"></i> Justificativa</td>
+      <td><div class="ui form">
+		  <div class="field">
+		    <textarea></textarea>
+		  </div>
+	  </div>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button type="submit" class="ui button">
+		  Enviar Justificativa
+	  </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</form>
+
+ 
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>painel.cc - Modificar Queda de Consumo</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+
+<script type="text/javascript" src="consumer_detail_new_arquivos/a"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/core.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery_002.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/actions.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/urlify.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/prepopulate.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/xregexp.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/inlines.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/calendar.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/DateTimeShortcuts.js"></script>
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-form" data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+        </div>                
+        <div id="user-tools">
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>
+                    <a href="http://painel.cc/">Ver o site</a> /
+                <a href="http://painel.cc/admin/password_change/">Alterar senha</a> /
+                <a href="http://painel.cc/admin/logout/">Encerrar sessao</a>
+        </div>
+    </div>
+    <!-- END Header -->
+
+    <!-- Content -->
+    <div id="content" class="colM">
+        <h1>Dados Consumidor</h1>
+        <div id="content-main">
+  <fieldset class="module aligned ">
+        <div class="form-row field-installation">
+                <div>
+                        <label for="id_installation">Instalacao:</label>
+                            {{ report.consumer.installation }}
+                </div>
+        </div>
+        <div class="form-row field-name">
+                <div>
+                        <label for="id_name">Nome:</label>
+                         {{ report.consumer.name }}
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>
+                        <label for="id_revenue">Referencia:</label>
+                            {{ report.referencia }}
+                </div>
+        </div>
+       <div class="form-row field-revenue">
+                <div>
+                        <label for="id_revenue">Consumo Referencia:</label>
+                            {{ report.consumo_referencia }}
+                </div>
+        </div>
+       <div class="form-row field-revenue">
+                <div>
+                        <label for="id_revenue">Media de consumo (3 meses anteriores a referencia):</label>
+                            {{ report.media_consumo }}
+                </div>
+        </div>
+        <form action="" method="POST">
+        <div class="form-row field-revenue">
+                <div>              
+		        <label><b>Expira</b></label>
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>              
+                   <label>Agora</label>
+                        <input type="radio" name="expira" value="agora">
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>              
+                   <label>3 Meses</label>
+                        <input type="radio" name="expira" value="3M">
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>              
+                   <label>6 Meses</label>
+                        <input type="radio" name="expira" value="6M">
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>              
+                   <label>12 Meses</label>
+                        <input type="radio" name="expira" value="12M">
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>              
+		        <label><b>Foi gerado alvo a partir deste alarme?</b></label>
+                </div>
+        </div>
+
+        <div class="form-row field-revenue">
+                <div>              
+                   <label>Sim</label>
+                        <input type="checkbox" name="alvo_gerado" value="True">
+                </div>
+        </div>
+
+         
+        <div class="form-row field-revenue">
+                <div>      
+	{% csrf_token %}
+	{{ form }}
+         </div>
+        </div>
+
+        <div class="form-row field-revenue">
+                <div>      
+
+	<input type="submit" value="Submit" />
+        </div>
+        </div>  
+</form>
+
+</fieldset>
+
+
+</tbody>
+</table>
+</div>
+
+
+</div></body></html>

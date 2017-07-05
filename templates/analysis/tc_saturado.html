@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>painel.cc - TC Saturado</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+
+<script type="text/javascript" src="consumer_detail_new_arquivos/a"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/core.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery_002.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/actions.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/urlify.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/prepopulate.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/xregexp.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/inlines.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/calendar.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/DateTimeShortcuts.js"></script>
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-form" data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>.
+            
+            
+                
+                    <a href="http://painel.cc/">Ver o site</a> /
+                
+           
+                    
+                    
+                
+                
+                <a href="http://painel.cc/admin/password_change/">Alterar senha</a> /
+                
+                <a href="http://painel.cc/admin/logout/">Encerrar sessÃ£o</a>
+            
+        </div>
+        
+        
+        
+    </div>
+    <!-- END Header -->
+    
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>TC Saturado</h1>
+        <div id="content-main">
+
+
+<form action="" method="POST">
+{% csrf_token %}
+{{ form }}
+<input type="submit" value="Submit" />
+</form>
+
+<a href="/analysis/download?arquivo={{arquivo}}.xlsx">Download Arquivo</a>
+
+
+<div>
+
+<fieldset class="module">
+<h2>Relatorio</h2> 
+
+
+<div class="results">
+<table width="100%" id="result_list">
+<thead>
+<tr>
+<th scope="col" class="sortable column-name">
+   <div class="text">Instalacao</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-name">
+   <div class="text">Nome</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Inicio</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Fim</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">Ia</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">Ib</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">Ic</div>
+   <div class="clear"></div>
+</th>
+</tr>
+</thead>
+<tbody>
+
+
+{% for out in outputs %}
+   {% for periodo in out.periodos %}
+<tr>
+      <th class="field-installation"><a href="/consumer/{{ out.id }}/detail">{{ out.instalacao }}</a></th>
+      <td>{{ out.nome }}</td>
+      <td><a href="/consumer/{{out.id}}/mm/{{periodo.link_mm}}&qt1=Ia&qt2=Ib&qt3=Ic">{{ periodo.hora_inicio|date:"d/m/Y H:i" }}</a></td> 
+      <td><a href="/consumer/{{out.id}}/mm/{{periodo.link_mm}}&qt1=Ia&qt2=Ib&qt3=Ic">{{ periodo.hora_fim|date:"d/m/Y H:i" }}</a></td> 
+      <td>{{ periodo.ia }}</td>
+      <td>{{ periodo.ib }}</td>
+      <td>{{ periodo.ic }}</td>
+   </tr>
+   {% endfor %}
+{% endfor %}
+
+
+</fieldset>         
+
+
+</tbody>
+</table>
+</div>
+
+
+</div></body></html>

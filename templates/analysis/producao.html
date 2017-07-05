@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>painel.cc - Produ&ccedil;&atilde;o</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+
+<script type="text/javascript" src="consumer_detail_new_arquivos/a"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/core.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery_002.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/actions.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/urlify.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/prepopulate.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/xregexp.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/inlines.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/calendar.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/DateTimeShortcuts.js"></script>
+
+{% include "cemar_celpa.html" %}
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-form" data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>.
+            
+            
+                
+                    <a href="http://painel.cc/">Ver o site</a> /
+                
+           
+                                                                      
+                <a href="http://painel.cc/admin/password_change/">Alterar senha</a> /                
+                <a href="http://painel.cc/admin/logout/">Encerrar sessão</a>            
+        </div>        
+    </div>
+    <!-- END Header -->
+    
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>Producao</h1>
+        <div id="content-main">
+
+
+<a href="/analysis/download?arquivo={{arquivo}}.xlsx">Download Arquivo</a>
+
+<div>
+
+{% if message == 'sucesso' %}
+<ul class="messagelist">
+       <li class="success">Producao cadastrada com sucesso</li>
+</ul>
+{% endif %}
+
+<fieldset class="module">
+<h2>Relatorio</h2> 
+
+
+<div class="results">
+<table width="100%" id="result_list">
+<thead>
+<tr>
+<th scope="col" class="sortable column-name">
+   <div class="text">Envio</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-name">
+   <div class="text">Tipo Servico</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Tecnico</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Instalacao</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Regional</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Codigo</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">Familia Codigo</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">Data Realizacao</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">Observacao</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">Data Devolucao</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text"></div>
+   <div class="clear"></div>
+</th>
+</tr>
+</thead>
+<tbody>
+{% for report in outputs %}
+   <tr>
+      <td>{{ report.envio|date:"d/m/Y H:i" }}</td>
+      <td>{{ report.tipo_servico }}</td>
+      <td>{{ report.tecnico }}</td>
+      <td>{{ report.instalacao }}</td>
+      <td>{{ report.regional }}</td>
+      <td>{{ report.codigo }}</td>
+      <td>{{ report.familia_codigo }}</td>
+      <td>{{ report.data_realizacao }}</td>
+      <td>{{ report.observacao }}</td>
+      <td>{{ report.data_devolucao }}</td>
+      <td><span class="equipelink"><a href="/producao/form_receber_alvo/?id={{report.id}}">Receber</a></span></td>
+   </tr>
+{% endfor %}
+</fieldset>         
+</tbody>
+</table>
+</div>
+
+
+</div></body></html>

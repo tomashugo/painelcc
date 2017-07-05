@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>painel.cc - Despachar Alvo</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+
+<script type="text/javascript" src="consumer_detail_new_arquivos/a"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/core.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery_002.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/actions.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/urlify.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/prepopulate.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/xregexp.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/inlines.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/calendar.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/DateTimeShortcuts.js"></script>
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-form" data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+        </div>                
+        <div id="user-tools">
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>
+                    <a href="http://painel.cc/">Ver o site</a> /
+                <a href="http://painel.cc/admin/password_change/">Alterar senha</a> /
+                <a href="http://painel.cc/admin/logout/">Encerrar sessão</a>
+        </div>
+    </div>
+    <!-- END Header -->
+<div class="breadcrumbs">
+<a href="http://painel.cc/">Início</a>
+› <a href="http://painel.cc/producao/alvos_abertos/">Alvos Abertos</a>
+› Despachar alvo
+</div>
+    <!-- Content -->
+    <div id="content" class="colM">
+        <h1>Despachar Alvo</h1>
+        <div id="content-main">
+        <fieldset class="module aligned ">
+        <div class="form-row field-installation">
+                <div>
+                        <label for="id_installation">Instalacao:</label>
+                            {{ alvo.consumer.installation }}
+                </div>
+        </div>
+        <div class="form-row field-name">
+                <div>
+                        <label for="id_name">Nome:</label>
+                         {{ alvo.consumer.name }}
+                </div>
+        </div>
+        <div class="form-row field-region">
+                <div>
+                        <label for="id_region">Data geracao:</label>
+                      {{ alvo.data_geracao|date:"d/m/Y" }}
+                </div>
+        </div>
+        <div class="form-row field-region">
+                <div>
+                        <label for="id_region">Regional:</label>
+                      {{ alvo.consumer.region.name }}
+                </div>
+        </div>
+        <div class="form-row field-region">
+                <div>
+                        <label for="id_region">Observacao:</label>
+                      {{ alvo.observacao }}
+                </div>
+        </div>
+        <form action="" method="POST">
+        <div class="form-row field-revenue">
+                <div>      
+   	{% csrf_token %}
+        <table>
+	{{ form }}
+        </table>
+         </div>
+        </div>
+
+        <div class="form-row field-revenue">
+                <div>      
+
+	<input type="submit" value="Submit" />
+        </div>
+        </div>  
+	</form>
+
+</fieldset>
+
+
+</tbody>
+</table>
+</div>
+
+
+</div></body></html>

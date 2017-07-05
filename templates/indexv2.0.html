@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>painel.cc</title>
+
+  <!--- Site CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/site.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/grid.css">
+
+  <!--- Component CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/docs.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/table.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/popup.css">
+  <link rel="stylesheet" type="text/css" class="ui" href="/static/semantic/dist/semantic.min.css">
+
+  <!--- Component JS -->
+  <script type="text/javascript" src="/static/semantic/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/semantic/tablesort.js"></script>
+  <script type="text/javascript" src="/static/semantic/docs.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/semantic.js"></script>
+
+
+
+{% load to_exclamation %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type='text/javascript'>
+      google.charts.load('current', {'packages':['annotationchart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        data.addColumn('number', 'Consumo');
+        data.addColumn('string', 'Observacao');
+
+        {% for i in grafico %}
+        data.addRows([[new Date({{ i.ano }}, {{ i.mes }}, {{ i.dia }}), {{ i.consumo }}, {% if i.observacao %} "{{ i.observacao }}" {% else %} undefined {% endif %}]]);      
+        {% endfor %}
+
+        var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+
+        var options = {
+          displayAnnotations: true
+        };
+
+        chart.draw(data, options);
+      }
+    </script>
+
+
+
+
+  <script src="../assets/library/iframe-content.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/popup.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/transition.js"></script>
+
+  <link rel="stylesheet/less" type="text/css" href="/static/theme.less" />
+
+  <!--- Show Names -->
+  <script src="../assets/show-examples.js"></script>
+
+  <!--- Example CSS -->
+  <style>
+  body {
+    padding: 1em;
+  }
+  .ui.table {
+    table-layout: fixed;
+  }
+  </style>
+
+  <!--- Example Javascript -->
+<script type="text/javascript">
+$('.sortable.table').tablesort();
+  </script>
+</head>
+
+<body>
+
+{% include "cabecalho.html" %}
+
+<div style="float:left;width:75%;">
+
+<h4 class="ui top attached block header">
+   <div class="ui breadcrumb">
+     <a class="section">Home</a>
+     <i class="right chevron icon divider"></i>
+     <div class="active section">
+     Dashboard
+   </div>
+</h4>
+
+<div class="ui bottom attached segment">
+
+<h4 class="ui top attached block header">
+   Menu Geral
+</h4>
+
+   <div class="ui bottom attached segment">
+      <div class="attached ui segment">
+         <a href="/consumer">Consumidores</a>
+      </div>
+   </div>
+   
+
+
+<h4 class="ui top attached block header">
+   An&aacute;lises Gerais
+</h4>
+
+   <div class="ui bottom attached segment">
+      <div class="top attached ui segment">
+         <a href="/analysis/queda_consumo">Queda de Consumo ({{ quantidade_queda_consumo }})</a> 
+      </div>
+
+      <div class="bottom attached ui segment">
+         <a href="/analysis/fraude_nao_incrementada">Fraude N&atilde;o Incrementada ({{ quantidade_fraude_nao_incrementada }})</a>
+      </div>
+   </div>
+
+
+
+
+
+<h4 class="ui top attached block header">
+   An&aacute;lises MM
+</h4>
+
+   <div class="ui bottom attached segment">
+      <div class="top attached ui segment">
+         <a href="/analysis/alteracoes_medidor">Altera&ccedil;&otilde;es do Medidor ({{quantidade_alteracoes_medidor}})</a>
+      </div>
+
+      <div class="attached ui segment">
+         <a href="/analysis/corrente_zerada">Correntes Zeradas ({{ quantidade_corrente_zerada }})</a>
+      </div>
+
+      <div class="attached ui segment">
+         <a href="/analysis/tensao_zerada">Tens&otilde;es Zeradas ({{ quantidade_tensao_zerada }})</a>
+      </div>
+
+      <div class="bottom attached ui segment">
+         <a href="/analysis/mm_versus_consumo">Comparativo MM x Faturamento ({{quantidade_relatorio_mm_versus_consumo}})</a>
+      </div>
+
+   </div>
+
+
+
+{% if company_session.name == 'Cemar' %}
+
+
+<h4 class="ui top attached block header">
+   Gest&atilde;o de Alvos
+</h4>
+
+   <div class="ui bottom attached segment">
+      <div class="top attached ui segment">
+         <a href="/producao/alvos_abertos">Alvos Em Aberto</a>
+      </div>
+
+      <div class="attached ui segment">
+         <a href="/producao/alvos_despachados">Alvos Despachados</a>
+      </div>
+
+      <div class="bottom attached ui segment">
+         <a href="/producao/alvos_nao_baixados">Alvos Realizados e N&atilde;o Baixados</a>
+      </div>
+
+   </div>
+
+<h4 class="ui top attached block header">
+   Outras Op&ccedil&otilde;es
+</h4>
+
+   <div class="ui bottom attached segment">
+      <div class="top attached ui segment">
+         <a href="/adm/">Carregar Dados</a>
+      </div>
+
+      <div class="attached ui segment">
+         <a href="/analysis/produtividade/?mes={{mes}}">Produtividade An&aacute;lise</a>
+      </div>
+
+      <div class="attached ui segment">
+         <a href="/analysis/producao">Produ&ccedil;&atilde;o das Equipes</a>
+      </div>
+
+      <div class="bottom attached ui segment">
+         <a href="/producao/stats/">Estat&iacute;stica de Alvos</a>
+      </div>
+
+   </div>
+
+{% endif %}
+ </div>
+</div>
+
+<div style="float:right;width:24%;">
+<h4 class="ui top attached block header">
+   Estat&iacute;sticas
+</h4>
+
+   <div class="ui bottom attached segment">
+
+	<center>
+		<div class="ui center statistic">
+		  <div class="value">
+		    <i class="database icon" style="color:#59D7EE;"></i> {{quantidade_mm}}
+		  </div>
+		  <div class="label">
+		    mm anexadas
+		  </div>
+		</div>
+	</center>
+
+	<h4 class="ui horizontal divider header">
+	  <i class="bar chart icon"></i>
+	  Alarmes
+	</h4>
+
+	<div class="ui two mini statistics">
+	  <div class="statistic">
+	    <div class="value">
+	      <i class="thumbs up icon" style="color:#0BDDBA;"></i> {{ justificados }}
+	    </div>
+	    <div class="label">
+	      justificados
+	    </div>
+	  </div>
+	  <div class="statistic">
+	    <div class="value">
+	      <i class="thumbs down icon" style="color:#F13D0C;"></i> {{ nao_justificados }}
+	    </div>
+	    <div class="label">
+	      n&atilde;o justificados
+	    </div>
+	  </div>
+	</div>
+
+
+   </div>
+
+</div>
+</body>
+</html>

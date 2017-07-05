@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>painel.cc - Modificar Tensao Zerada</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+
+<script type="text/javascript" src="consumer_detail_new_arquivos/a"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/core.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery_002.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/actions.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/urlify.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/prepopulate.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/xregexp.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/inlines.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/calendar.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/DateTimeShortcuts.js"></script>
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-form" data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+        </div>                
+        <div id="user-tools">
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>
+                    <a href="http://painel.cc/">Ver o site</a> /
+                <a href="http://painel.cc/admin/password_change/">Alterar senha</a> /
+                <a href="http://painel.cc/admin/logout/">Encerrar sessão</a>
+        </div>
+    </div>
+    <!-- END Header -->
+<div class="breadcrumbs">
+<a href="http://painel.cc/">Início</a>
+› <a href="http://painel.cc/consumer/">Consumidores</a>
+› {{ consumer.name }}
+</div>
+    <!-- Content -->
+    <div id="content" class="colM">
+        <h1>Dados Consumidor</h1>
+        <div id="content-main">
+  <fieldset class="module aligned ">
+        <div class="form-row field-installation">
+                <div>
+                        <label for="id_installation">Instalacao:</label>
+                            <a href="/consumer/{{report.consumer.id}}/detail">{{ report.consumer.installation }}</a>
+                </div>
+        </div>
+        <div class="form-row field-name">
+                <div>
+                        <label for="id_name">Nome:</label>
+                         {{ report.consumer.name }}
+                </div>
+        </div>
+        <div class="form-row field-region">
+                <div>
+                        <label for="id_region">Inicio:</label>
+                      {{ report.inicio|date:"d/m/Y H:i" }}
+                </div>
+        </div>
+        <div class="form-row field-region">
+                <div>
+                        <label for="id_region">Fim:</label>
+                      {{ report.fim|date:"d/m/Y H:i" }}
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>
+                        <label for="id_revenue">Va:</label>
+                            {{ report.va }}
+                </div>
+        </div>
+       <div class="form-row field-revenue">
+                <div>
+                        <label for="id_revenue">Vb:</label>
+                            {{ report.vb }}
+                </div>
+        </div>
+       <div class="form-row field-revenue">
+                <div>
+                        <label for="id_revenue">Vc:</label>
+                            {{ report.vc }}
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>
+                        <label for="id_revenue">Memoria de Massa:</label>
+                        <a href="/analysis/download_mm/?arquivo={{mm_path}}"><span class="downloadlink">{{ mm.archive }}</span></a>
+                </div>
+        </div>
+        <form action="" method="POST">
+        <div class="form-row field-revenue">
+                <div>              
+		        <label> Aplicar justificativa para todas as recorrencias: </label>
+                        <input type="checkbox" name="batch">
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>              
+		        <label><b>Expira</b></label>
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>              
+                   <label>Agora</label>
+                        <input type="radio" name="expira" value="agora">
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>              
+                   <label>3 Meses</label>
+                        <input type="radio" name="expira" value="3M">
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>              
+                   <label>6 Meses</label>
+                        <input type="radio" name="expira" value="6M">
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>              
+                   <label>12 Meses</label>
+                        <input type="radio" name="expira" value="12M">
+                </div>
+        </div>
+        <div class="form-row field-revenue">
+                <div>      
+	{% csrf_token %}
+	{{ form }}
+         </div>
+        </div>
+
+        <div class="form-row field-revenue">
+                <div>      
+
+	<input type="submit" value="Submit" />
+        </div>
+        </div>  
+</form>
+
+</fieldset>
+
+
+</tbody>
+</table>
+</div>
+
+
+</div></body></html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Carregar Planilhas</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+
+<script type="text/javascript" src="consumer_detail_new_arquivos/a"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/core.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery_002.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/actions.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/urlify.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/prepopulate.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/xregexp.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/inlines.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/calendar.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/DateTimeShortcuts.js"></script>
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-form" data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>.
+            
+            
+                
+                    <a href="http://painel.cc/">Ver o site</a> /                                                                                               
+                <a href="http://painel.cc/admin/password_change/">Alterar senha</a> /                
+                <a href="http://painel.cc/admin/logout/">Encerrar sessao</a>            
+        </div>                        
+    </div>
+    <!-- END Header -->
+    
+<div class="breadcrumbs">
+<a href="http://painel.cc/">Inicio</a>
+› Upload de Planilhas
+</div>
+
+<fieldset class="module">
+<form method="POST" action="" enctype="multipart/form-data">
+<table width="100%">
+{{ form }}
+{% csrf_token %}
+</table>
+
+<input type="submit" value="Enviar">
+</form>
+
+
+</fieldset>
+
+</div></body></html>

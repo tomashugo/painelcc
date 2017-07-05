@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Producao</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+
+{% load widget_tweaks %}
+
+{% block extra_header %}
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/widgets.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/global.css"/>
+{% endblock %}
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-form" data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            
+                Bem-vindo(a)
+        </div>                        
+    </div>
+    <!-- END Header -->
+    
+{% block content %}
+<div class="breadcrumbs">
+Producao
+</div>
+
+{% if message == 'sucesso' %}
+<ul class="messagelist">
+       <li class="success">Producao enviada com sucesso</li>
+</ul>
+{% endif %}
+
+
+<fieldset class="module">
+<form method="POST" action="">
+<table width="100%">
+{{ form }}
+{% csrf_token %}
+</table>
+
+<input type="submit" value="Enviar">
+</form>
+{% endblock %}
+
+
+{% block footer_js %}
+<script>
+    var django = django || {};
+    django.jQuery = $;
+</script>
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+{{ formset.media }}
+{% endblock %}
+
+</fieldset>
+
+</div></body></html>

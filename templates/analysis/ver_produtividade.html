@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>painel.cc - Produtividade</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+
+<script type="text/javascript" src="consumer_detail_new_arquivos/a"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/core.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery_002.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/actions.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/urlify.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/prepopulate.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/xregexp.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/inlines.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/calendar.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/DateTimeShortcuts.js"></script>
+
+<style type="text/css">
+.justificados {
+border-bottom: 1px solid black;
+}
+</style>
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-form" data-admin-utc-offset="-10800">
+
+
+<!-- Container -->
+<div id="container">
+
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>.
+            
+            
+                
+                    <a href="http://painel.cc/">Ver o site</a> /
+                
+           
+                                                                      
+                <a href="http://painel.cc/admin/password_change/">Alterar senha</a> /                
+                <a href="http://painel.cc/admin/logout/">Encerrar sessão</a>            
+        </div>        
+    </div>
+    <!-- END Header -->
+    
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>Produtividade <b>{{analista}}</b></h1>
+        <div id="content-main">
+
+
+<h2>MM Versus Consumo</h2>
+
+
+{% for i in mmversusconsumo %}
+<div class="justificados">
+<p><b>Instalacao:</b> <a href="/consumer/{{i.consumer.id}}/detail?versao=2.0">{{i.consumer.installation}}</a></p>
+<p><b>Cliente:</b> {{i.consumer.name}}</p>
+<p><b>Referencia:</b> {{i.mes_referencia|date:"d/m/Y"}}</p>
+<p><b>Faturado:</b> {{ i.consumo_faturado }}</p>
+<p><b>Consumo MM:</b> {{ i.consumo_mm }}</p>
+<p><b>Justificativa:</b> {{i.justificativa}}</p>
+</div>
+{% endfor %}
+
+
+
+<h2>Corrente Zerada</h2>
+
+{% for i in correntezerada %}
+<div class="justificados">
+<p><b>Instalacao:</b> <a href="/consumer/{{i.consumer.id}}/detail?versao=2.0">{{i.consumer.installation}}</a></p><p><b>Cliente:</b> {{i.consumer.name}}</p>
+<p><b>Inicio:</b> {{ i.inicio }}</p>
+<p><b>Fim:</b> {{ i.fim }}</p>
+<p><b>Justificativa:</b> {{i.justificativa}}</p>
+</div>
+{% endfor %}
+
+<h2>Tensao Zerada</h2>
+
+{% for i in tensaozerada %}
+<div class="justificados">
+<p><b>Instalacao:</b> <a href="/consumer/{{i.consumer.id}}/detail?versao=2.0">{{i.consumer.installation}}</a></p>
+<p><b>Cliente:</b> {{i.consumer.name}}</p>
+<p><b>Inicio:</b> {{ i.inicio }}</p>
+<p><b>Fim:</b> {{ i.fim }}</p>
+<p><b>Justificativa:</b> {{i.justificativa}}</p>
+</div>
+{% endfor %}
+
+<h2>Alteracoes de medidor</h2>
+
+{% for i in alteracoesmedidor %}
+<div class="justificados">
+<p><b>Instalacao:</b> <a href="/consumer/{{i.consumer.id}}/detail?versao=2.0">{{i.consumer.installation}}</a></p>
+<p><b>Cliente:</b> {{i.consumer.name}}</p>
+<p><b>Data Alteracao:</b> {{ i.data_alteracao }}</p>
+<p><b>Leitor:</b> {{ i.leitor }}</p>
+<p><b>Codigo:</b> {{ i.code }} - {{ i.observacao }}</p>
+<p><b>Justificativa:</b> {{i.justificativa}}</p>
+</div>
+{% endfor %}
+
+<h2>Queda de consumo</h2>
+
+{% for i in quedadeconsumo %}
+<div class="justificados">
+<p><b>Instalacao:</b> <a href="/consumer/{{i.consumer.id}}/detail?versao=2.0">{{i.consumer.installation}}</a></p>
+<p><b>Cliente:</b> {{i.consumer.name}}</p>
+<p><b>Referencia:</b> {{ i.referencia }}</p>
+<p><b>Media anterior:</b> {{ i.media_consumo }}</p>
+<p><b>Consumo Referencia:</b> {{ i.consumo_referencia }}</p>
+<p><b>Justificativa:</b> {{i.justificativa}}</p>
+</div>
+{% endfor %}
+
+
+</div></div></div></body></html>

@@ -1,0 +1,51 @@
+<table width="100%">
+<tr>
+<td>Instalacao</td>
+<td>Cliente</td>
+<td>Cidade</td> 
+<td>Regional</td>
+<td>Faturamento</td>
+</tr>
+<tr>
+<td>{{consumer.installation}}</td>
+<td>{{consumer.name}}</td>
+<td>{{consumer.city}}</td> 
+<td>{{consumer.region}}</td>
+<td>{{consumer.revenue}}</td>
+</tr>
+</table>
+
+Historico de medidores <BR>
+
+<table width="100%">
+<tr>
+ <td>Medidor</td>
+ <td>De</td>
+ <td>Ate</td>
+</tr>
+{% for meter in consumer.meterhistory_set.all %}
+<tr>
+    <td>{{ meter.meter.serial }}</td>
+    <td> {{ meter.since|date:"d/m/Y" }} </td>
+    <Td> {{ meter.until|date:"d/m/Y" }} </td>
+</tr>
+{% endfor %}
+</table>
+Memoria de massa <BR>
+
+<table width="100%">
+<tr>
+ <td><b>Timestamp</b></td>
+ <td><b>kW</b></td>
+ <Td><b>kVarI</b></td>
+ <td><b>kVarC</b></td>
+</tr>
+{% for i in history %}
+   <tr>
+   <td>{{i.date_hour|date:"d/m/y h:i:s"}}</td>
+   <td>{{i.channel_1_value}}</td>
+   <td>{{i.channel_2_value}}</td>
+   <td>{{i.channel_3_value}}</td>  
+   </tr>
+{% endfor %}
+</table>

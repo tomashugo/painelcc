@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Alvos em Aberto</title>
+
+  <!--- Site CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/site.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/grid.css">
+
+  <!--- Component CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/docs.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/table.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/popup.css">
+  <link rel="stylesheet" type="text/css" class="ui" href="/static/semantic/dist/semantic.min.css">
+
+  <!--- Component JS -->
+  <script type="text/javascript" src="/static/semantic/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/semantic/tablesort.js"></script>
+  <script type="text/javascript" src="/static/semantic/docs.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/semantic.js"></script>
+
+
+  <script src="../assets/library/iframe-content.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/popup.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/transition.js"></script>
+
+  <!--- Show Names -->
+  <script src="../assets/show-examples.js"></script>
+
+  <!--- Example CSS -->
+  <style>
+  body {
+    padding: 1em;
+  }
+  .ui.table {
+    table-layout: fixed;
+  }
+ 
+  </style>
+
+  <!--- Example Javascript -->
+<script type="text/javascript">
+$('.sortable.table').tablesort();
+  </script>
+</head>
+
+<body>
+
+{% include "cabecalho.html" %}
+
+<h4 class="ui top attached block header">
+Erro de Formul&aacute;rio - 403CSRF</h4>
+
+<div class="ui bottom attached segment">
+
+<div class="ui error message">
+  <i class="close icon"></i>
+  <div class="header">
+    O seu formul&aacute;rio est&aacute; com sess&atilde;o inv&aacute;lida, por algum dos motivos abaixo:
+  </div>
+  <ul class="list">
+    <li>Voc&ecirc; demorou muito tempo para preench&ecirc;-lo.</li>
+    <li>Foram inputados valores diferentes do esperado.</li>
+  </ul>
+  <p>Por favor, tente novamente.</p>
+</div>
+
+</div>
+
+</body>
+</html>

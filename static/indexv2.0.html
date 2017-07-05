@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Theming - Semantic</title>
+
+  <!--- Site CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/site.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/grid.css">
+
+  <!--- Component CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/docs.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/table.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/popup.css">
+  <link rel="stylesheet" type="text/css" class="ui" href="/static/semantic/dist/semantic.min.css">
+
+  <!--- Component JS -->
+  <script type="text/javascript" src="/static/semantic/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/semantic/tablesort.js"></script>
+  <script type="text/javascript" src="/static/semantic/docs.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/semantic.js"></script>
+
+
+
+{% load to_exclamation %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type='text/javascript'>
+      google.charts.load('current', {'packages':['annotationchart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        data.addColumn('number', 'Consumo');
+        data.addColumn('string', 'Observacao');
+
+        {% for i in grafico %}
+        data.addRows([[new Date({{ i.ano }}, {{ i.mes }}, {{ i.dia }}), {{ i.consumo }}, {% if i.observacao %} "{{ i.observacao }}" {% else %} undefined {% endif %}]]);      
+        {% endfor %}
+
+        var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+
+        var options = {
+          displayAnnotations: true
+        };
+
+        chart.draw(data, options);
+      }
+    </script>
+
+
+
+
+  <script src="../assets/library/iframe-content.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/popup.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/transition.js"></script>
+
+  <link rel="stylesheet/less" type="text/css" href="/static/theme.less" />
+
+  <!--- Show Names -->
+  <script src="../assets/show-examples.js"></script>
+
+  <!--- Example CSS -->
+  <style>
+  body {
+    padding: 1em;
+  }
+  .ui.table {
+    table-layout: fixed;
+  }
+  </style>
+
+  <!--- Example Javascript -->
+<script type="text/javascript">
+$('.sortable.table').tablesort();
+  </script>
+</head>
+
+<body>
+
+{% include "cabecalho.html" %}
+
+<h4 class="ui top attached block header">
+   <div class="ui breadcrumb">
+     <a class="section">Home</a>
+     <i class="right chevron icon divider"></i>
+     <div class="active section">
+     Dashboard
+   </div>
+</h4>
+
+<div class="ui bottom attached segment">
+
+<h4 class="ui top attached block header">
+   Menu Geral
+</h4>
+
+   <div class="ui bottom attached segment">
+      <div class="attached ui segment">
+         <a href="">Consumidores</a>
+      </div>
+   </div>
+   
+
+
+<h4 class="ui top attached block header">
+   An&aacute;lises Gerais
+</h4>
+
+   <div class="ui bottom attached segment">
+      <div class="top attached ui segment">
+         <a href="">Queda de Consumo</a>
+      </div>
+
+      <div class="bottom attached ui segment">
+         <a href="">Fraude N&atilde;o Incrementada</a>
+      </div>
+   </div>
+
+
+
+
+
+<h4 class="ui top attached block header">
+   An&aacute;lises MM
+</h4>
+
+   <div class="ui bottom attached segment">
+      <div class="top attached ui segment">
+         <a href="">Altera&ccedil;&otilde;es do Medidor</a>
+      </div>
+
+      <div class="attached ui segment">
+         <a href="">Correntes Zeradas</a>
+      </div>
+
+      <div class="attached ui segment">
+         <a href="">Tens&otilde;es Zeradas</a>
+      </div>
+
+      <div class="bottom attached ui segment">
+         <a href="">Comparativo MM x Faturamento</a>
+      </div>
+
+   </div>
+
+
+
+
+<h4 class="ui top attached block header">
+   Gest&atilde;o de Alvos
+</h4>
+
+   <div class="ui bottom attached segment">
+      <div class="top attached ui segment">
+         <a href="">Alvos Em Aberto</a>
+      </div>
+
+      <div class="attached ui segment">
+         <a href="">Alvos Despachados</a>
+      </div>
+
+      <div class="bottom attached ui segment">
+         <a href="">Alvos Realizados e N&atilde;o Baixados</a>
+      </div>
+
+   </div>
+
+<h4 class="ui top attached block header">
+   Outras Op&ccedil&otilde;es
+</h4>
+
+   <div class="ui bottom attached segment">
+      <div class="top attached ui segment">
+         <a href="">Carregar Dados</a>
+      </div>
+
+      <div class="attached ui segment">
+         <a href="">Alvos Despachados</a>
+      </div>
+
+      <div class="attached ui segment">
+         <a href="">Produtividade An&aacute;lise</a>
+      </div>
+
+      <div class="attached ui segment">
+         <a href="">Produ&ccedil;&atilde;o das Equipes</a>
+      </div>
+
+      <div class="bottom attached ui segment">
+         <a href="">Estat&iacute;stica de Alvos</a>
+      </div>
+
+   </div>
+
+
+ </div>
+
+
+</body>
+</html>

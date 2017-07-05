@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Modificar Consumidor | Site de administração do Django</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+
+<script type="text/javascript" src="consumer_detail_new_arquivos/a"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/core.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery_002.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/actions.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/urlify.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/prepopulate.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/xregexp.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/inlines.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/calendar.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/DateTimeShortcuts.js"></script>
+
+{% include "cemar_celpa.html" %}
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-form" data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            Empresa: {{ company_session }} /
+
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>.
+            
+            
+                
+                    <a href="http://painel.cc/">Ver o site</a> /
+                
+           
+                    
+                    
+                
+                
+                <a href="http://painel.cc/admin/password_change/">Alterar senha</a> /
+                
+                <a href="http://painel.cc/admin/logout/">Encerrar sessão</a>
+            
+        </div>
+        
+        
+        
+    </div>
+    <!-- END Header -->
+    
+<div class="breadcrumbs">
+<a href="http://painel.cc/">Início</a>
+› <a href="http://painel.cc/consumer/">Consumidores</a>
+› <a href="http://painel.cc/consumer/{{ consumer.id }}/detail">{{ consumer.name }}</a>
+› MM
+</div>
+
+    
+
+    
+        
+    
+
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>Dados Consumidor</h1>
+        <div id="content-main">
+
+
+
+
+<div>
+
+
+
+
+
+
+
+  <fieldset class="module aligned ">
+    
+    
+    
+        <div class="form-row field-installation">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_installation">Instalacao:</label>
+                        
+                            {{ consumer.installation }}
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-name">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_name">Nome:</label>
+                        
+                         {{ consumer.name }}
+
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-city">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_city">Cidade:</label>
+                        
+                           {{ consumer.city }}
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-region">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_region">Regional:</label>
+                        
+                            
+
+                      {{ consumer.region }}
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-revenue">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_revenue">Revenue:</label>
+                        
+                            {{ consumer.revenue }}
+                        
+                    
+                    
+                </div>
+            
+        </div>
+       <div class="form-row field-revenue">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_revenue">Registros de MM:</label>
+                        
+                            {{ consumer.history_set.count }}
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+</fieldset>
+
+<fieldset class="module">
+<form action="?qt1={{ request.GET.qt1 }}&qt2={{ request.GET.qt2 }}&qt3={{ request.GET.qt3 }}" method="POST">
+{% csrf_token %}
+{{ form }}
+<input type="submit" value="Submit" />
+</form>
+</fieldset>
+
+
+<fieldset class="module">
+{% if data_de %}
+<h2>Memoria de Massa - <a href="?data_de={{data_de}}&data_ate={{data_ate}}&qt1=kW&qt2=kVarI&qt3=kVarC">Demandas</a> <a href="?data_de={{data_de}}&data_ate={{data_ate}}&qt1=Va&qt2=Vb&qt3=Vc">Tensoes</a> <a href="?data_de={{data_de}}&data_ate={{data_ate}}&qt1=Ia&qt2=Ib&qt3=Ic">Correntes</a></h2> 
+{% else %}
+<h2>Memoria de Massa - <a href="?qt1=kW&qt2=kVarI&qt3=kVarC">Demandas</a> <a href="?qt1=Va&qt2=Vb&qt3=Vc">Tensoes</a> <a href="?qt1=Ia&qt2=Ib&qt3=Ic">Correntes</a></h2> 
+{% endif %}
+
+<div class="results">
+<table width="100%" id="result_list">
+<thead>
+<tr>
+<th scope="col" class="sortable column-name">
+   <div class="text">Hora</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Dia da semana</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">{{ request.GET.qt1 }}</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-city">
+   <div class="text">{{ request.GET.qt2 }}</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">{{ request.GET.qt3 }}</div>
+   <div class="clear"></div>
+</th>
+
+</tr>
+</thead>
+<tbody>
+
+{% if history %}
+   {% for i in history %}
+<tr class="row1"><th class="field-installation">{{i.date_hour|date:"d/m/y H:i:s"}}</th><td class="field-name">{{i.date_hour.weekday}}</td><td class="field-name">{{i.channel_1_value}}</td><td class="field-city">{{i.channel_2_value}}</td><td class="field-region nowrap">{{i.channel_3_value}}</td></tr>
+   {% endfor %}
+{% endif %}
+</fieldset>         
+
+
+</tbody>
+</table>
+</div>
+
+{% if history.paginator.num_pages > 0 %}
+<p class="paginator">
+{% if history.has_previous %}
+<a href="?page={{ history.previous_page_number }}&qt1={{ request.GET.qt1 }}&qt2={{ request.GET.qt2 }}&qt3={{ request.GET.qt3 }}">Anterior</a>
+{% endif %}
+Pagina {{ history.number }} de {{ history.paginator.num_pages }}
+{% if history.has_next %}
+<a href="?page={{ history.next_page_number }}&qt1={{ request.GET.qt1 }}&qt2={{ request.GET.qt2 }}&qt3={{ request.GET.qt3 }}">Proxima</a>
+{% endif %}
+</p>   
+{% endif %}
+
+</div></body></html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>painel.cc - Altera&ccedil;&otilde;es do Medidor</title>
+
+  <!--- Site CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/site.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/grid.css">
+
+  <!--- Component CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/docs.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/table.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/popup.css">
+  <link rel="stylesheet" type="text/css" class="ui" href="/static/semantic/dist/semantic.min.css">
+
+  <!--- Component JS -->
+  <script type="text/javascript" src="/static/semantic/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/semantic/tablesort.js"></script>
+  <script type="text/javascript" src="/static/semantic/docs.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/semantic.js"></script>
+
+
+  <script src="../assets/library/iframe-content.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/popup.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/transition.js"></script>
+
+  <!--- Show Names -->
+  <script src="../assets/show-examples.js"></script>
+
+  <!--- Example CSS -->
+  <style>
+  body {
+    padding: 1em;
+  }
+  .ui.table {
+    table-layout: fixed;
+  }
+ 
+  </style>
+
+  <!--- Example Javascript -->
+<script type="text/javascript">
+$('.sortable.table').tablesort();
+  </script>
+</head>
+
+<body>
+
+{% include "cabecalho.html" %}
+
+
+<h4 class="ui top attached block header">
+  <div class="ui breadcrumb">
+    <a class="section">Home</a>
+    <i class="right chevron icon divider"></i>
+    <a class="section">Alvos MM</a>
+    <i class="right arrow icon divider"></i>
+    <div class="active section">Altera&ccedil;&otilde;es do Medidor</div>
+  </div>  
+</h4>
+
+<div class="ui bottom attached segment">
+
+{% if message == 'sucesso' %}
+{% include "producao/justificado_sucesso.html" %}
+{% endif %}
+
+<table class="ui celled table">
+  <thead>
+    <tr>
+      <th>Instala&ccedil;&atilde;o</th>
+      <th>Nome</th>
+      <th>Data</th>
+      <th>Leitor</th>
+      <th>Code</th>
+      <th>Observa&ccedil;&atilde;o</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for out in outputs %}
+   <tr>
+      <td><a href="/consumer/{{ out.consumer.id }}/detail">{{ out.instalacao }}</a></th>
+      <td>{{ out.nome }}</td>
+      <td>{{ out.data|date:"d/m/Y H:i" }}</td> 
+      <td><span class="equipelink">{{ out.leitor }}</span></td>
+      <td>{{ out.code }}</td>
+      <td>{{ out.observacao }}</td>
+      <td><a href="/analysis/form_alteracoes_medidor/?id={{ out.id }}"><span class="analisarlink">Justificar</span></a></td>
+   </tr>
+   {% endfor %}
+  </tbody>
+   <tfoot>
+    <tr><th colspan="7">
+      <div class="ui right floated pagination menu">
+        <a class="item">1</a>
+      </div>
+    </th>
+  </tr></tfoot>
+</table>
+     </div>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>painel.cc - Tensao Zerada</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+
+<script type="text/javascript" src="consumer_detail_new_arquivos/a"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/core.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery_002.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/actions.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/urlify.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/prepopulate.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/xregexp.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/inlines.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/calendar.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/DateTimeShortcuts.js"></script>
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-form" data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>.
+            
+            
+                
+                    <a href="http://painel.cc/">Ver o site</a> /
+                
+           
+                    
+                    
+                
+                
+                <a href="http://painel.cc/admin/password_change/">Alterar senha</a> /
+                
+                <a href="http://painel.cc/admin/logout/">Encerrar sessao</a>
+            
+        </div>
+        
+        
+        
+    </div>
+    <!-- END Header -->
+    
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>Tensao Zerada</h1>
+        <div id="content-main">
+
+
+<a href="/analysis/download?arquivo={{arquivo}}.xlsx">Download Arquivo</a>
+
+<div>
+
+{% if message == 'sucesso' %}
+<ul class="messagelist">
+       <li class="success">Alvo justificado com sucesso</li>
+</ul>
+{% endif %}
+
+<fieldset class="module">
+<h2>Relatorio</h2> 
+
+
+<div class="results">
+<table width="100%" id="result_list">
+<thead>
+<tr>
+<th scope="col" class="sortable column-name">
+   <div class="text">Instalacao</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-name">
+   <div class="text">Nome</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Inicio</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Fim</div>
+   <div class="clear"></div>
+</th>
+{% if tem_recorrencia %}
+<th scope="col" class="column-meter">
+   <div class="text">Recorrencia</div>
+   <div class="clear"></div>
+</th>
+{% endif %}
+<th scope="col" class="sortable column-region">     
+   <div class="text">Va</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">Vb</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">Vc</div>
+   <div class="clear"></div>
+</th>
+{% if not tem_recorrencia %}
+<th scope="col" class="sortable column-region">     
+   <div class="text"></div>
+   <div class="clear"></div>
+</th>
+{% endif %}
+</tr>
+</thead>
+<tbody>
+
+
+{% for out in outputs %}
+<tr>
+      <th class="field-installation"><a href="/consumer/{{ out.consumer.id }}/detail">{{ out.consumer.installation }}</a></th>
+      <td>{{ out.consumer.name }}</td>
+      <td><a href="/consumer/{{out.consumer.id}}/mm/{{out.link_mm}}&qt1=Va&qt2=Vb&qt3=Vc">{{ out.inicio|date:"d/m/Y H:i" }}</a></td> 
+      <td><a href="/consumer/{{out.consumer.id}}/mm/{{out.link_mm}}&qt1=Va&qt2=Vb&qt3=Vc">{{ out.fim|date:"d/m/Y H:i" }}</a></td> 
+      {% if tem_recorrencia %}
+      <td><a href="/analysis/tensao_zerada/{{ out.consumer.id }}/recorrencia">{{ out.recorrencia }}</a></td>
+      {% endif %}
+      <td>{{ out.va }}</td>
+      <td>{{ out.vb }}</td>
+      <td>{{ out.vc }}</td>
+      {% if not tem_recorrencia %}
+      <td><a href="/analysis/form_tensao_zerada/?id={{out.id}}"><span class="analisarlink">Justificar</span></a></td>
+      {% endif %}
+
+   </tr>
+{% endfor %}
+
+
+</fieldset>         
+
+
+</tbody>
+</table>
+</div>
+
+
+</div></body></html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>painel.cc - MM Versus Consumo</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+
+<script type="text/javascript" src="consumer_detail_new_arquivos/a"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/core.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery_002.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/actions.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/urlify.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/prepopulate.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/xregexp.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/inlines.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/calendar.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/DateTimeShortcuts.js"></script>
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-form" data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>.
+            
+            
+                
+                    <a href="http://painel.cc/">Ver o site</a> /
+                
+           
+                                                                      
+                <a href="http://painel.cc/admin/password_change/">Alterar senha</a> /                
+                <a href="http://painel.cc/admin/logout/">Encerrar sessão</a>            
+        </div>        
+    </div>
+    <!-- END Header -->
+    
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>MM Versus Consumo Faturado ({{reports.count}})</h1>
+        <div id="content-main">
+
+
+<a href="/analysis/download?arquivo={{arquivo}}.xlsx">Download Arquivo</a>
+
+<div>
+
+<fieldset class="module">
+<h2>Relatorio</h2> 
+
+
+<div class="results">
+<table width="100%" id="result_list">
+<thead>
+<tr>
+<th scope="col" class="sortable column-name">
+   <div class="text">Instalacao</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-name">
+   <div class="text">Nome</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Referencia</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">FAT</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Medidor</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Faturado</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">Registrado MM</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">%</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">MM</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">Tipo Comparacao</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text"></div>
+   <div class="clear"></div>
+</th>
+</tr>
+</thead>
+<tbody>
+{% for report in reports %}
+   <tr>
+      <td><a href="/consumer/{{report.consumer.id}}/detail">{{ report.consumer.installation }}</a></td>
+      <td>{{ report.consumer.name }}</td>
+      <td>{{ report.mes_referencia|date:"m/Y" }}</td>
+      <td>{{ report.consumer.revenue }}</td>
+      <td>{{ report.meter.serial }}</td>
+      <td>{{ report.consumo_faturado }}</td>
+      <td>{{ report.consumo_mm }}</td>
+      <td>{{ report.dif|floatformat }}</td>
+      <td><a href="/analysis/download_mm/?arquivo={{report.mm_path}}"><span class="downloadlink">{{ report.mm.archive }}</span></a></td>
+      <td>{{ report.tipo_comparacao }}</td>
+      <td><a href="/analysis/form_mm_versus_consumo/?id={{report.id}}"><span class="analisarlink">Justificar</span></a></td>
+   </tr>
+{% endfor %}
+</fieldset>         
+</tbody>
+</table>
+</div>
+
+
+</div></body></html>

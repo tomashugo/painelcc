@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="pt-br" >
+<head>
+<title>painel.cc</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/dashboard.css" />
+
+{% include "cemar_celpa.html" %}
+
+<meta name="robots" content="NONE,NOARCHIVE" />
+</head>
+
+
+<body class=" dashboard"
+  data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+     <!-- Header -->
+    <div id="header">
+        <div id="branding">       
+<h1 id="site-name"><a href="/">painel.cc</a></h1>
+        </div>
+        <div id="user-tools">
+                Empresa: {{ company_session }} /
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>.
+                    <a href="/">Ver o site</a> /
+                <a href="/admin/password_change/">Alterar senha</a> /
+                <a href="/admin/logout/">Encerrar sessao</a>
+        </div>
+    </div>
+    <!-- END Header -->
+    <!-- Content -->
+    <div id="content" class="colMS">
+        <h1>Dashboard</h1>
+        <div id="content-main">
+
+      <div class="module">
+        <table>
+        <caption>
+            <a href="/admin/crews/" class="section">Menu Geral</a>
+        </caption>
+            <tr>
+                <th scope="row"><a href="consumer">Consumidores</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        </div>
+
+        <div class="module">
+        <table>
+        <caption>
+            <a href="/admin/crews/" class="section">Analises gerais ({{ quantidade_queda_consumo }})</a>
+        </caption>
+            <tr>
+                <th scope="row"><a href="analysis/queda_consumo/">Queda de Consumo ({{ quantidade_queda_consumo }})</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+		<tr>
+                <th scope="row"><a href="analysis/fraude_nao_incrementada/">Fraude N&atilde;o Incrementada ({{ quantidade_fraude_nao_incrementada }})</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        </div>
+
+
+        <div class="module">
+        <table>
+        <caption>
+            <a href="/admin/crews/" class="section">An&aacute;lises MM</a>
+        </caption>
+            <tr>
+                <th scope="row"><a href="analysis/alteracoes_medidor/">Altera&ccedil;&otilde;es do medidor ({{quantidade_alteracoes_medidor}})</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+	         <th scope="row"><a href="analysis/corrente_zerada/">Correntes zeradas ({{ quantidade_corrente_zerada }})</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row"><a href="analysis/tensao_zerada/">Tens&atilde;o Zerada ({{ quantidade_tensao_zerada }})</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th scope="row"><a href="analysis/mm_versus_consumo/">Comparativo MM x Faturamento ({{quantidade_relatorio_mm_versus_consumo}})</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        </div>
+
+	<div class="module">
+        <table>
+        <caption>
+            <a href="/admin/crews/" class="section">Gest&atilde;o de alvos</a>
+        </caption>
+            <tr>
+ 	        <th scope="row"><a href="/producao/alvos_abertos">Alvos Em Aberto</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+ 	        <th scope="row"><a href="/producao/alvos_despachados">Alvos Despachados</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+ 	        <th scope="row"><a href="/producao/alvos_nao_baixados">Alvos Realizados e N&atilde;o Baixados</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        </div>
+
+
+        <div class="module">
+        <table>
+        <caption>
+            <a href="/admin/crews/" class="section">Outras op&ccedil;&otilde;es</a>
+        </caption>
+            <tr>
+                <th scope="row"><a href="/adm/">Carregar Dados</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+	         <th scope="row"><a href="/analysis/produtividade/?mes={{mes}}">Produtividade Analise</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+ 	         <th scope="row"><a href="/analysis/producao">Produ&ccedil;&atilde;o das Equipes</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+ 	         <th scope="row"><a href="/producao/stats/">Estat&iacute;stica de Alvos</a></th>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        </div>
+
+</div>
+
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2><span class="iconalert">Estatisticas</span></h2>
+        <h3>Geral</h3>
+        <ul class="actionlist">
+           <li class="addlink">{{quantidade_mm}} mem&oacute;rias de massa anexadas</li>
+        </ul>
+        <h3>Alarmes</h3>
+        <ul class="actionlist">
+           <li class="changelink">{{ justificados }} casos justificados</li>
+           <li class="deletelink">{{ nao_justificados }} casos nao justificados</li>
+        </ul>
+        
+    </div>
+</div>
+
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+
+</body>
+</html>

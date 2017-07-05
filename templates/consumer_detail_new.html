@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-br"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>painel.cc - Detalhes da Instala&ccedil;&atilde;o</title>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css">
+
+{% load to_exclamation %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type='text/javascript'>
+      google.charts.load('current', {'packages':['annotationchart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        data.addColumn('number', 'Consumo');
+        data.addColumn('string', 'Observacao');
+
+        {% for i in grafico %}
+        data.addRows([[new Date({{ i.ano }}, {{ i.mes }}, {{ i.dia }}), {{ i.consumo }}, {% if i.observacao %} "{{ i.observacao }}" {% else %} undefined {% endif %}]]);      
+        {% endfor %}
+
+        var chart = new google.visualization.AnnotationChart(document.getElementById('chart_div'));
+
+        var options = {
+          displayAnnotations: true
+        };
+
+        chart.draw(data, options);
+      }
+    </script>
+
+
+<script type="text/javascript" src="consumer_detail_new_arquivos/a"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/core.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/jquery_002.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/actions.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/urlify.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/prepopulate.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/xregexp.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/inlines.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/calendar.js"></script>
+<script type="text/javascript" src="consumer_detail_new_arquivos/DateTimeShortcuts.js"></script>
+
+
+{% include "cemar_celpa.html" %}
+
+
+
+<meta name="robots" content="NONE,NOARCHIVE">
+</head>
+
+
+<body class=" app-mm model-consumer change-form" data-admin-utc-offset="-10800">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="http://painel.cc/">painel.cc</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            Empresa: {{ company_session }} /
+
+                Bem-vindo(a),
+                <strong>{{request.user.username}}</strong>.
+            
+            
+                
+                    <a href="http://painel.cc/">Ver o site</a> /
+                
+           
+                    
+                    
+                
+                
+                <a href="http://painel.cc/admin/password_change/">Alterar senha</a> /
+                
+                <a href="http://painel.cc/admin/logout/">Encerrar sessão</a>
+            
+        </div>
+        
+        
+        
+    </div>
+    <!-- END Header -->
+    
+<div class="breadcrumbs">
+<a href="http://painel.cc/">Início</a>
+› <a href="http://painel.cc/consumer/">Consumidores</a>
+› {{ consumer.name }}
+</div>       
+        <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>Dados Consumidor</h1>
+        <div id="content-main">
+<form enctype="multipart/form-data" action="" method="post" id="consumer_form" novalidate=""><input name="csrfmiddlewaretoken" value="FJBYkILbVo6fyHSxclRm25uWEj17adEzk1AJLAgEPc4N3wwJ0AM2giQ7ZuzLYbef" type="hidden">
+<div>
+  <fieldset class="module aligned ">
+ 
+    
+    
+        <div class="form-row field-installation">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_installation">Instalacao:</label>
+                        
+                            {{ consumer.installation }}
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-name">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_name">Nome:</label>
+                        
+                         {{ consumer.name }}
+
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-city">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_city">Cidade:</label>
+                        
+                           {{ consumer.city }}
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-region">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_region">Regional:</label>
+                        
+                            
+
+                      {{ consumer.region }}
+                        
+                    
+                    
+                </div>
+            
+        </div>
+    
+        <div class="form-row field-revenue">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_revenue">Revenue:</label>
+                        
+                            {{ consumer.revenue }}
+                        
+                    
+                    
+                </div>
+            
+        </div>
+       <div class="form-row field-revenue">
+            
+            
+                <div>
+                    
+                    
+                        <label for="id_revenue">Registros de MM:</label>
+                        
+                            {{ consumer.history_set.count }}
+                        
+                    
+                    
+                </div>
+            
+        </div>
+<center><div id='chart_div' style='width: 1000px; height: 500px;'></div></center>
+    
+</fieldset>
+
+
+
+<fieldset class="module">
+<h2>Historico de Medidores</h2> 
+
+{% for meter in consumer.meterhistory_set.all %}
+<div class="inline-related has_original" id="meterhistory_set-0">
+  <h3><span class="inline_label">&nbsp;&nbsp;{{ meter.meter.serial }}
+</span></h3>
+
+<fieldset class="module aligned ">
+        <div class="form-row field-since">
+                <div>
+                        <label>Valido desde:</label>
+                        {{ meter.since|date:"d/m/Y" }}
+                </div>
+        </div>
+        <div class="form-row field-since">
+                <div>
+                        <label>Valido ate:</label>
+                        {{ meter.until|date:"d/m/Y" }}
+                </div>
+        </div>
+</fieldset>
+{% endfor %}
+</fieldset>
+
+
+<fieldset class="module">
+<h2>Historico de Inspecoes</h2> 
+
+{% for insp in inspections %}
+<div class="inline-related has_original" id="meterhistory_set-0">
+  <h3><span class="inline_label">&nbsp;&nbsp;{{ insp.ns }}
+</span></h3>
+
+<fieldset class="module aligned ">
+        <div class="form-row field-since">
+                <div>
+                        <label>Codigo:</label>
+                        {{ insp.code }}
+                </div>
+        </div>
+        <div class="form-row field-since">
+                <div>
+                        <label>Inspecionado em:</label>
+                        {{ insp.date_time_executed|date:"d/m/Y" }}
+                </div>
+        </div>
+        <div class="form-row field-since">
+                <div>
+                        <label>Observacao:</label>
+                        {{ insp.observation }}
+                </div>
+        </div>
+
+        <div class="form-row field-since">
+                <div> 
+                        <label>MM</label>
+                        <label>Grandezas</label>
+               </div>
+        </div>
+
+
+
+        {% if insp.mms %}
+        {% for mm in insp.mms %}
+        <div class="form-row field-since">
+                <div>
+                        <label>{{mm.archive}}</label>
+                        <label>{{mm.channel_1_qty.quantity}}, {{mm.channel_2_qty.quantity}}, {{mm.channel_3_qty.quantity}}</label>
+			<label><a href="http://painel.cc/analysis/download_mm/?arquivo={{mm.path|to_exclamation}}">Download</a></label>
+               </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+  
+</fieldset>
+{% endfor %}
+</fieldset>
+
+<fieldset class="module">
+<h2>Memoria de Massa - <a href="mm/?qt1=kW&qt2=kVarI&qt3=kVarC">Demandas</a> <a href="mm/?qt1=Va&qt2=Vb&qt3=Vc">Tensoes</a> <a href="mm/?qt1=Ia&qt2=Ib&qt3=Ic">Correntes</a></h2> 
+
+
+<div class="results">
+<table width="100%" id="result_list">
+<thead>
+<tr>
+<th scope="col" class="sortable column-name">
+   <div class="text">Hora</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">Dia da semana</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="column-meter">
+   <div class="text">kW</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-city">
+   <div class="text">kVarI</div>
+   <div class="clear"></div>
+</th>
+<th scope="col" class="sortable column-region">     
+   <div class="text">kVarC</div>
+   <div class="clear"></div>
+</th>
+
+</tr>
+</thead>
+<tbody>
+
+{% if history %}
+   {% for i in history %}
+<tr class="row1"><th class="field-installation">{{i.date_hour|date:"d/m/y h:i:s"}}</th><td class="field-name">{{i.date_hour.weekday}}</td><td class="field-name">{{i.channel_1_value}}</td><td class="field-city">{{i.channel_2_value}}</td><td class="field-region nowrap">{{i.channel_3_value}}</td></tr>
+   {% endfor %}
+{% endif %}
+</fieldset>         
+
+
+</tbody>
+</table>
+</div>
+
+
+</div></body></html>

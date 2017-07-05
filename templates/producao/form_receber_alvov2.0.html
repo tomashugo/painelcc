@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>painel.cc - Receber Alvo</title>
+
+  <!--- Site CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/site.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/grid.css">
+
+  <!--- Component CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/docs.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/table.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/popup.css">
+  <link rel="stylesheet" type="text/css" class="ui" href="/static/semantic/dist/semantic.min.css">
+
+  <!--- Component JS -->
+  <script type="text/javascript" src="/static/semantic/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/semantic/tablesort.js"></script>
+  <script type="text/javascript" src="/static/semantic/docs.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/semantic.js"></script>
+
+
+  <script src="../assets/library/iframe-content.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/popup.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/transition.js"></script>
+
+  <!--- Show Names -->
+  <script src="../assets/show-examples.js"></script>
+
+  <!--- Example CSS -->
+  <style>
+  body {
+    padding: 1em;
+  }
+  .ui.table {
+    table-layout: fixed;
+  }
+ 
+  </style>
+
+  <script type="text/javascript">
+$(document).ready(function(){
+$('.ui.dropdown').dropdown();
+$('.ui.checkbox').checkbox('attach events', '.toggle.button');
+$('.ui.radio.checkbox').checkbox();
+});  </script>
+
+
+</head>
+
+<body>
+
+{% include "cabecalho.html" %}
+
+
+<h4 class="ui top attached block header">
+  <div class="ui breadcrumb">
+    <a class="section">Home</a>
+    <i class="right chevron icon divider"></i>
+    <a class="section">Produ&ccedil;&atilde;o</a>
+    <i class="right arrow icon divider"></i>
+    <div class="active section">Receber Alvo</div>
+  </div>  
+</h4>
+
+<div class="ui bottom attached segment">
+
+{% if message == 'sucesso' %}
+{% include "producao/sucesso.html" %}
+{% endif %}
+
+
+<h4 class="ui horizontal divider header">
+  <i class="edit icon"></i>
+ Receber Alvo
+</h4>
+<form method="POST" action="">
+{% csrf_token %}
+<table class="ui definition table">
+  <tbody>
+    <tr>
+      <td class="two wide column"><i class="calendar icon"></i> Envio</td>
+      <td>{{ alvo.envio }}</td>
+    </tr>
+    <tr>
+      <td><i class="cubes icon"></i> Tipo de Servi&ccedil;o</td>
+      <td>{{ alvo.tipo_servico }}</td>
+    </tr>
+    <tr>
+      <td><i class="spy icon"></i> Inspetor</td>
+      <td>{{ alvo.tecnico }}</td>
+    </tr>
+    <tr>
+      <td><i class="user icon"></i> Instala&ccedil;&atilde;o</td>
+      <td>{{ alvo.instalacao }}</td>
+    </tr>
+    <tr>
+      <td><i class="world icon"></i> Regional</td>
+      <td>{{ alvo.regional }}</td>
+    </tr> 
+    <tr>
+      <td><i class="code icon"></i> C&oacute;digo</td>
+      <td>{{ alvo.codigo }}</td>
+    </tr>
+    <tr>
+      <td><i class="code icon"></i> Fam&iacute;lia C&oacute;digo</td>
+      <td>{{ alvo.familia_codigo }}</td>
+    </tr>
+    <tr>
+      <td><i class="add to calendar icon"></i> Data Realiza&ccedil;&atilde;o</td>
+      <td>{{ alvo.data_realizacao }}</td>
+    </tr>
+    <tr>
+      <td><i class="edit icon"></i> Observa&ccedil;&atilde;o</td>
+      <td>{{ alvo.observacao }}</td>
+    </tr>
+    <tr>
+      <td><i class="add to calendar icon"></i> Data Devolu&ccedil;&atilde;o</td>
+      <td>{{ form.data_devolucao }}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+         <button type="submit" class="ui button">
+	    Receber Alvo
+	 </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</form>
+
+
+     </div>
+
+</body>
+</html>

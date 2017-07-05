@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>painel.cc - Alvos Despachados</title>
+
+  <!--- Site CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/site.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/grid.css">
+
+  <!--- Component CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/docs.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/table.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/popup.css">
+  <link rel="stylesheet" type="text/css" class="ui" href="/static/semantic/dist/semantic.min.css">
+
+  <!--- Component JS -->
+  <script type="text/javascript" src="/static/semantic/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/semantic/tablesort.js"></script>
+  <script type="text/javascript" src="/static/semantic/docs.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/semantic.js"></script>
+
+
+  <script src="../assets/library/iframe-content.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/popup.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/transition.js"></script>
+
+  <!--- Show Names -->
+  <script src="../assets/show-examples.js"></script>
+
+  <!--- Example CSS -->
+  <style>
+  body {
+    padding: 1em;
+  }
+  .ui.table {
+    table-layout: fixed;
+  }
+ 
+  </style>
+
+  <!--- Example Javascript -->
+<script type="text/javascript">
+$('.sortable.table').tablesort();
+  </script>
+</head>
+
+<body>
+
+{% include "cabecalho.html" %}
+
+
+<h4 class="ui top attached block header">
+  <div class="ui breadcrumb">
+    <a class="section">Home</a>
+    <i class="right chevron icon divider"></i>
+    <a class="section">Produ&ccedil;&atilde;o</a>
+    <i class="right arrow icon divider"></i>
+    <div class="active section">Alvos Despachados</div>
+  </div>  
+</h4>
+
+<div class="ui bottom attached segment">
+
+{% if message == 'sucesso' %}
+{% include "producao/sucesso.html" %}
+{% endif %}
+
+<table class="ui celled table">
+  <thead>
+    <tr>
+      <th>NS</th>
+      <th>Data Gera&ccedil;&atilde;o</th>
+      <th>Instala&ccedil;&atilde;o</th>
+      <th>Cliente</th>
+      <th>Regional</th>
+      <th>Observa&ccedil;&atilde;o</th>
+      <th>Data Despachado</th>
+      <th>Data Executado</th>
+      <th>Inspetor</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for report in outputs %}
+   <tr>
+      <td>{{ report.ns }}</td>
+      <td>{{ report.data_geracao }}</td>
+      <td>{{ report.installation }}</td>
+      <td>{{ report.name }}</td>
+      <td>{{ report.region }}</td>
+      <td>{{ report.observacao }}</td>
+      <td>{{ report.data_despacho }}</td> 
+      <td>{{ report.data_executado|date:"d/m/Y" }}</td>
+      <td>{{ report.inspetor }}</td>
+      <td><i class="spy icon"></i><a href="/producao/form_alvos_abertos/?id={{report.id}}">Redespachar</a></td>
+   </tr>
+  {% endfor %}
+  </tbody>
+   <tfoot>
+    <tr><th colspan="10">
+      <div class="ui right floated pagination menu">
+        <a class="icon item">
+          <i class="left chevron icon"></i>
+        </a>
+        <a class="item">1</a>
+        <a class="item">2</a>
+        <a class="item">3</a>
+        <a class="item">4</a>
+        <a class="icon item">
+          <i class="right chevron icon"></i>
+        </a>
+      </div>
+    </th>
+  </tr></tfoot>
+</table>
+     </div>
+
+</body>
+</html>
