@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>Alvos em Aberto</title>
+  <title>painel.cc - Estatisticas</title>
 
   <!--- Site CSS -->
   <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/reset.css">
@@ -75,33 +75,21 @@ $('.sortable.table').tablesort();
 <table class="ui celled table">
   <thead>
     <tr>
-      <th>NS</th>
-      <th>Data Gera&ccedil;&atilde;o</th>
-      <th>Instala&ccedil;&atilde;o</th>
-      <th>Medidor</th>
-      <th>Cliente</th>
-      <th>Localidade</th>
-      <th>Regional</th>
-      <th>Executado</th>
-      <th>Observa&ccedil;&atilde;o</th>
-      <th></th>
+      <th>Inspetor</th>
+      <th>Tempo M&eacute;dio (dias)</th>
+      <th>Tempo M&aacute;ximo (dias)</th>
+      <th>Quantidade de Alvos N&atilde;o Realizados</th>      
     </tr>
   </thead>
   <tbody>
   {% for report in outputs %}
    <tr>
-      <td>{{ report.ns }}</td>
-      <td>{{ report.data_geracao }}</td>
-      <td><a href="/consumer/{{report.consumer.id}}/detail">{{ report.consumer.installation }}</a></td>
-      <td>{{ report.serial }}</td>
-      <td>{{ report.consumer.name }}</td>
-      <td>{{ report.consumer.city }}</td>
-      <td>{{ report.consumer.region.name }}</td>
-      <td>{{ report.executado }}</td>
-      <td>{{ report.observacao }}</td>
-      <td><i class="spy icon"></i> <a href="/producao/form_alvos_abertos/?id={{report.id}}">Despachar</a></td>
+      <td>{{ report.inspetor }}</td>
+      <td>{{ report.media }}</td>
+      <td>{{ report.maior }}</td>
+      <td>{{ report.quantidade }}</td>
    </tr>
-   {% endfor %}
+{% endfor %}
   </tbody>
    <tfoot>
     <tr><th colspan="10">

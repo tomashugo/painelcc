@@ -285,8 +285,13 @@ def stats(request):
          outputs.append(output)
 
    #return HttpResponse(a)
+   
+   versao = request.GET.get('versao')
 
-   return render(request,'producao/stats.html',{'company_session':company_session,'outputs': outputs,})
+   if versao == '2.0':
+       return render(request,'producao/statsv2.0.html',{'company_session':company_session,'outputs': outputs,})
+   else:
+       return render(request,'producao/stats.html',{'company_session':company_session,'outputs': outputs,})
 
 @login_required(login_url='/admin/login/')
 def alvos_nao_baixados(request):
