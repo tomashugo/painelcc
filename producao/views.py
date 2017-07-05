@@ -183,7 +183,7 @@ def alvos_despachados(request):
    wb = Workbook()
    ws = wb.active
 
-   ws.append(['Ns','Data Geracao','Instalacao','Cliente','Regional','Observacao','Data Despacho','Data Executado','Tempo Execucao','Inspetor'])
+   ws.append(['Ns','Data Geracao','Instalacao','Cliente','Localidade','Regional','Observacao','Data Despacho','Data Executado','Tempo Execucao','Inspetor'])
 
    for alarm in alarms:
       output = Output()
@@ -195,7 +195,9 @@ def alvos_despachados(request):
          output.installation = alarm.alvo_aberto.consumer.installation
          output.name = alarm.alvo_aberto.consumer.name
          output.region = alarm.alvo_aberto.consumer.region.name     
+         output.localidade = alarm.alvo_aberto.consumer.city
       else:
+         output.localidade = ""
          output.installation = ""
          output.name = ""
          output.data_geracao = ""
@@ -218,9 +220,9 @@ def alvos_despachados(request):
          output.data_executado = ""
       
       if output.data_executado != "":
-         ws.append([alarm.alvo_aberto.ns,alarm.alvo_aberto.data_geracao,alarm.alvo_aberto.consumer.installation,alarm.alvo_aberto.consumer.name,alarm.alvo_aberto.consumer.region.name,alarm.alvo_aberto.observacao,alarm.data_despacho,output.data_executado,(output.data_executado.date()-alarm.data_despacho).days,unicode(alarm.inspetor)])
+         ws.append([alarm.alvo_aberto.ns,alarm.alvo_aberto.data_geracao,alarm.alvo_aberto.consumer.installation,alarm.alvo_aberto.consumer.name,alarm.alvo_aberto.consumer.city,alarm.alvo_aberto.consumer.region.name,alarm.alvo_aberto.observacao,alarm.data_despacho,output.data_executado,(output.data_executado.date()-alarm.data_despacho).days,unicode(alarm.inspetor)])
       else:
-         ws.append([alarm.alvo_aberto.ns,alarm.alvo_aberto.data_geracao,alarm.alvo_aberto.consumer.installation,alarm.alvo_aberto.consumer.name,alarm.alvo_aberto.consumer.region.name,alarm.alvo_aberto.observacao,alarm.data_despacho,output.data_executado,"",unicode(alarm.inspetor)])
+         ws.append([alarm.alvo_aberto.ns,alarm.alvo_aberto.data_geracao,alarm.alvo_aberto.consumer.installation,alarm.alvo_aberto.consumer.name,alarm.alvo_aberto.consumer.city,alarm.alvo_aberto.consumer.region.name,alarm.alvo_aberto.observacao,alarm.data_despacho,output.data_executado,"",unicode(alarm.inspetor)])
 
 
       outputs.append(output)
