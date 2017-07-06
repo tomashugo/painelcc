@@ -272,11 +272,11 @@ def consumer_detail(request,consumer_id):
    #versao = request.GET.get('versao')
    versao = '2.0'
 
-   alteracoes_medidor = RelatorioAlteracoesMedidor.objects.all().filter(consumer=consumer).filter(justificado = True).filter(~Q(justificativa__contains = '!BATCH!')).order_by('-data_alteracao')
-   corrente_zerada = RelatorioCorrenteZerada.objects.all().filter(consumer=consumer).filter(justificado = True).filter(~Q(justificativa__contains = '!BATCH!')).order_by('-inicio')
-   tensao_zerada = RelatorioTensaoZerada.objects.all().filter(consumer=consumer).filter(justificado = True).filter(~Q(justificativa__contains = '!BATCH!')).order_by('-inicio')
-   queda_consumo = RelatorioQuedaDeConsumo.objects.all().filter(consumer=consumer).filter(justificado = True).filter(~Q(justificativa__contains = '!BATCH!')).order_by('-referencia')
-   mm_versus_consumo = RelatorioMMVersusConsumo.objects.all().filter(consumer=consumer).filter(justificado = True).filter(~Q(justificativa__contains = '!BATCH!')).order_by('-mes_referencia')
+   alteracoes_medidor = RelatorioAlteracoesMedidor.objects.all().filter(consumer=consumer).filter(justificado = True).filter(~Q(justificativa__contains = '!BATCH!'))
+   corrente_zerada = RelatorioCorrenteZerada.objects.all().filter(consumer=consumer).filter(justificado = True).filter(~Q(justificativa__contains = '!BATCH!'))
+   tensao_zerada = RelatorioTensaoZerada.objects.all().filter(consumer=consumer).filter(justificado = True).filter(~Q(justificativa__contains = '!BATCH!'))
+   queda_consumo = RelatorioQuedaDeConsumo.objects.all().filter(consumer=consumer).filter(justificado = True).filter(~Q(justificativa__contains = '!BATCH!'))
+   mm_versus_consumo = RelatorioMMVersusConsumo.objects.all().filter(consumer=consumer).filter(justificado = True).filter(~Q(justificativa__contains = '!BATCH!'))
 
    alarmes = []
 
@@ -335,7 +335,7 @@ def consumer_detail(request,consumer_id):
 
       alarmes.append(alarme)
 
-   #alarmes = sorted(alarmes,key = lambda x: x.data_hora,reverse=True)
+   alarmes = sorted(alarmes,key = lambda x: x.referencia,reverse=True)
 
    context = { 'company_session': company_session, 'consumer' : consumer, 'history' : history, 'inspections':inspections, 'grafico' : grafico, 'alarmes':alarmes, }
 
