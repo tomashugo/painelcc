@@ -243,6 +243,7 @@ def form_corrente_zerada(request):
          id = request.GET.get('id')
          expira = request.POST.get('expira')
          batch = request.POST.get('batch')
+         alvo_gerado = request.POST.get('alvo_gerado')
 
          if expira not in ["agora","3M","6M","12M"]:
             return HttpResponse('ERRO! Uma data para expiracao deve ser escolhida<br><a href="/analysis/form_corrente_zerada/?id='+id+'">Voltar</a>')
@@ -261,6 +262,7 @@ def form_corrente_zerada(request):
          report.user = request.user.username
          report.data_hora = datetime.now()
          report.data_expira = data_expira
+         report.alvo_gerado = alvo_gerado
          report.justificado = True
          report.save()
 
@@ -272,6 +274,7 @@ def form_corrente_zerada(request):
                report.user = request.user.username
                report.data_expira = data_expira
                report.data_hora = datetime.now()
+               report.alvo_gerado = alvo_gerado
                report.justificado = True
                report.save()
 
@@ -308,24 +311,26 @@ def form_tensao_zerada(request):
          id = request.GET.get('id')
          expira = request.POST.get('expira')
          batch = request.POST.get('batch')
+         alvo_gerado = request.POST.get('alvo_gerado')
 
          if expira not in ["agora","3M","6M","12M"]:
             return HttpResponse('ERRO! Uma data para expiracao deve ser escolhida<br><a href="/analysis/form_tensao_zerada/?id='+id+'">Voltar</a>')
 
          data_expira = datetime.now()
-         
+
          if expira == '3M':
             data_expira = data_expira + timedelta(days=90)
          if expira == '6M':
             data_expira = data_expira + timedelta(days=180)
          if expira == '12M':
             data_expira = data_expira + timedelta(days=365)
-         
+
          report = RelatorioTensaoZerada.objects.get(id=id)
          report.justificativa = form.cleaned_data['justificativa']
          report.user = request.user.username
          report.data_hora = datetime.now()
          report.data_expira = data_expira
+         report.alvo_gerado = alvo_gerado
          report.justificado = True
          report.save()
 
@@ -337,6 +342,7 @@ def form_tensao_zerada(request):
                report.user = request.user.username
                report.data_expira = data_expira
                report.data_hora = datetime.now()
+               report.alvo_gerado = alvo_gerado
                report.justificado = True
                report.save()
 
