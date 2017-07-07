@@ -161,7 +161,6 @@ def alvos_abertos(request):
    else:
       return render(request,'producao/alvos_abertos.html',{'message':message,'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,})
 
-
 @login_required(login_url='/admin/login/')
 def alvos_despachados(request):
    company_session = Company.objects.get(name=request.session['Company'])

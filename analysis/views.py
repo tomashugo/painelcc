@@ -10,6 +10,7 @@ from analysis.models import Billing, Inspection, RelatorioAlteracoesMedidor, Rel
 from django.db import models
 import random, string, os
 from .forms import FormBillingMM, TheForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from openpyxl import Workbook
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -480,7 +481,51 @@ def queda_consumo(request):
 
    alarms = RelatorioQuedaDeConsumo.objects.all().filter(justificado = False).order_by('consumer','-referencia').filter(company=company_session)
 
-   for alarm in alarms:
+   paginator = Paginator(alarms,200)
+
+   page = request.GET.get('page')
+
+   if page is None:
+      page = 1
+
+   try:
+      alarms_pages = paginator.page(page)
+   except PageNotAnInteger:
+      alarms_pages = paginator.page(1)
+   except EmptyPage:
+      alarms_pages = paginator.page(paginator.num_pages)
+
+   paginas = []
+
+   num_pages = paginator.num_pages
+
+   a = range(1,num_pages)
+  
+   for i in a:
+      paginas.append(i)
+   
+   try:
+      while paginas[0] < int(page) - 2:
+         paginas.pop(0)
+   except IndexError:
+      pass
+
+   add = 0
+  
+   try:
+      if int(page) - paginas[0] < 2:
+         add = 2 - (int(page) - paginas[0])
+   except IndexError:
+      pass
+
+   try:
+      while paginas[-1] > int(page) + 2 + add:
+         paginas.pop()
+   except IndexError:
+      pass
+
+
+   for alarm in alarms_pages:
       output = Output()
 
       output.id = alarm.id
@@ -510,7 +555,7 @@ def queda_consumo(request):
    versao = '2.0'
 
    if versao == '2.0':
-      return render(request,'analysis/queda_consumov2.0.html',{'message':message,'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,})
+      return render(request,'analysis/queda_consumov2.0.html',{'message':message,'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,'paginas':paginas,'page':int(page),'alarms_pages':alarms_pages,})
    else:
       return render(request,'analysis/queda_consumo.html',{'message':message,'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,})
 
@@ -589,7 +634,51 @@ def fraude_nao_incrementada(request):
 
    alarms = RelatorioFraudeNaoIncrementada.objects.all().filter(justificado = False).order_by('-mes_fraude').filter(company=company_session)
 
-   for alarm in alarms:
+   paginator = Paginator(alarms,100)
+
+   page = request.GET.get('page')
+
+   if page is None:
+      page = 1
+
+   try:
+      alarms_pages = paginator.page(page)
+   except PageNotAnInteger:
+      alarms_pages = paginator.page(1)
+   except EmptyPage:
+      alarms_pages = paginator.page(paginator.num_pages)
+
+   paginas = []
+
+   num_pages = paginator.num_pages
+
+   a = range(1,num_pages)
+  
+   for i in a:
+      paginas.append(i)
+   
+   try:
+      while paginas[0] < int(page) - 2:
+         paginas.pop(0)
+   except IndexError:
+      pass
+
+   add = 0
+  
+   try:
+      if int(page) - paginas[0] < 2:
+         add = 2 - (int(page) - paginas[0])
+   except IndexError:
+      pass
+
+   try:
+      while paginas[-1] > int(page) + 2 + add:
+         paginas.pop()
+   except IndexError:
+      pass
+
+
+   for alarm in alarms_pages:
       output = Output()
 
       output.id = alarm.id
@@ -617,7 +706,7 @@ def fraude_nao_incrementada(request):
    versao = '2.0'
 
    if versao == '2.0':
-      return render(request,'analysis/fraude_nao_incrementadav2.0.html',{'message':message,'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,'quantidade':len(outputs),})
+      return render(request,'analysis/fraude_nao_incrementadav2.0.html',{'message':message,'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,'quantidade':len(outputs),'paginas':paginas,'page':int(page),'alarms_pages':alarms_pages,})
    else:
       return render(request,'analysis/fraude_nao_incrementada.html',{'message':message,'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,'quantidade':len(outputs),})
 
@@ -688,6 +777,7 @@ def corrente_zerada(request):
    versao = '2.0'
 
    message = request.GET.get('message')
+
 
    for alarm in alarms:
       output = Output()

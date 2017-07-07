@@ -100,7 +100,30 @@ $('.sortable.table').tablesort();
    <tfoot>
     <tr><th colspan="7">
       <div class="ui right floated pagination menu">
-        <a class="item">1</a>
+                {% if paginas %}
+
+{% if alarms_pages.has_previous %}
+        <a class="icon item" href="?page={{ alarms_pages.previous_page_number }}&q={{query}}&versao=2.0">
+          <i class="left chevron icon"></i>
+        </a>
+{% endif %}
+{% for i in paginas %}
+ <a href="?page={{ i }}&q={{query}}&versao=2.0" class="item {% if i == page %}
+active
+{% endif %}">{{i}}</a>
+{% endfor %}
+{% if alarms_pages.has_next %}
+        <a href="?page={{ alarms_pages.next_page_number }}&q={{query}}&versao=2.0" class="icon item">
+          <i class="right chevron icon"></i>
+        </a>
+{% endif %}
+
+{% else %}
+
+ <a href="#" class="item active">1</a>
+
+{% endif %}
+
       </div>
     </th>
   </tr></tfoot>
