@@ -6,11 +6,14 @@ import os, random
 from adm.models import Sheet
 import datetime
 from django.contrib.auth.decorators import login_required
+from mm.models import Company
 
 
 # Create your views here.
 @login_required(login_url='/admin/login/')
 def index(request):
+   company_session = Company.objects.get(name=request.session['Company'])
+   
    if request.method == 'POST':
       form = UploadFileForm(request.POST,request.FILES)
       if form.is_valid():              
@@ -38,4 +41,4 @@ def index(request):
    else:
       form = UploadFileForm()
 
-   return render(request,'adm/uploadv2.0.html',{'form':form})
+   return render(request,'adm/uploadv2.0.html',{'form':form,'company_session':company_session,})
