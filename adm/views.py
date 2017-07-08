@@ -38,4 +38,4 @@ def index(request):
    else:
       form = UploadFileForm()
 
-   return render(request,'adm/upload.html',{'form':form})
+   return render(request,'adm/uploadv2.0.html',{'form':form})
