@@ -59,6 +59,9 @@ $('.ui.radio.checkbox').checkbox();
 
 {% include "cabecalho.html" %}
 
+{% if message == 'sucesso' %}
+{% include "adm/sucesso.html" %}
+{% endif %}
 
 <h4 class="ui top attached block header">
   <div class="ui breadcrumb">
@@ -72,16 +75,12 @@ $('.ui.radio.checkbox').checkbox();
 
 <div class="ui bottom attached segment">
 
-{% if message == 'sucesso' %}
-{% include "producao/sucesso.html" %}
-{% endif %}
-
 
 <h4 class="ui horizontal divider header">
   <i class="upload icon"></i>
  Selecionar Planilha
 </h4>
-<form method="POST" action="">
+<form method="POST" action=""  enctype="multipart/form-data">
 {% csrf_token %}
 <table class="ui definition table">
   <tbody>
