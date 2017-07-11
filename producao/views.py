@@ -14,8 +14,10 @@ from crews.models import Employee
 
 def index(request):
    message = request.GET.get('message')
-   company_session = Company.objects.get(name=request.session['Company'])
-   message = request.GET.get('message')
+   try:
+       company_session = Company.objects.get(name=request.session['Company'])
+   except KeyError:
+       company_session = "Equatorial"
 
    if request.method == 'POST':
       form = ProducaoForm(request.POST)

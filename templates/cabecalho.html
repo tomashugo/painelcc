@@ -5,13 +5,15 @@
   <div class="header item">
    {{ company_session }}
   </div>
-  <a class="item" href="http://painel.cc"><i class="home icon"></i> Home</a>
-  <a class="item" href="http://painel.cc/consumer/"><i class="search icon"></i> Buscar Consumidor</a>
+  <a class="item" href="/"><i class="home icon"></i> Home</a>
+  <a class="item" href="/consumer/"><i class="search icon"></i> Buscar Consumidor</a>
   <div class="right menu">
     {% if arquivo %}
     <a class="item" href="/analysis/download?arquivo={{arquivo}}.xlsx"><i class="download icon" style="color:#87cbac;"></i> Download Planilha</a>
     {% endif %}
+    {% if company_session != 'Equatorial' %}
     <a class="item" href="http://painel.cc/admin/password_change/"><i class="privacy icon" style="color:#91a6ff;"></i> Alterar Senha</a>
     <a class="item" href="http://painel.cc/admin/logout/"><i class="unlock icon" style="color:#ff5154;"></i> Encerrar sess&atilde;o</a>
+    {% endif %}
   </div>
 </div>
