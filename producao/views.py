@@ -14,6 +14,8 @@ from crews.models import Employee
 
 def index(request):
    message = request.GET.get('message')
+   company_session = Company.objects.get(name=request.session['Company'])
+   message = request.GET.get('message')
 
    if request.method == 'POST':
       form = ProducaoForm(request.POST)
@@ -26,12 +28,13 @@ def index(request):
          return HttpResponseRedirect('/producao/?message=sucesso')
    else:
       form = ProducaoForm()
-
-   return render(request,'producao/form.html',{'message':message,'form':form,})
+     
+   return render(request,'producao/formv2.0.html',{'message':message,'form':form,'company_session':company_session,})
 
 @login_required(login_url='/admin/login/')
 def form_receber_alvo(request):
    company_session = Company.objects.get(name=request.session['Company'])
+   message = request.GET.get('message')
 
    if request.method == 'GET':
       form = ReceberAlvoForm()

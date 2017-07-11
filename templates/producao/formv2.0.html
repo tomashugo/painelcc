@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>painel.cc - Produ&ccedil;&atilde;o</title>
+
+  <!--- Site CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/site.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/grid.css">
+
+  <!--- Component CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/docs.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/table.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/popup.css">
+  <link rel="stylesheet" type="text/css" class="ui" href="/static/semantic/dist/semantic.min.css">
+
+  <!--- Component JS -->
+  <script type="text/javascript" src="/static/semantic/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/semantic/tablesort.js"></script>
+  <script type="text/javascript" src="/static/semantic/docs.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/semantic.js"></script>
+
+
+  <script src="../assets/library/iframe-content.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/popup.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/transition.js"></script>
+
+  <!--- Show Names -->
+  <script src="../assets/show-examples.js"></script>
+
+  <!--- Example CSS -->
+  <style>
+  body {
+    padding: 1em;
+  }
+  .ui.table {
+    table-layout: fixed;
+  }
+ 
+  </style>
+
+  <script type="text/javascript">
+$(document).ready(function(){
+$('.ui.dropdown').dropdown();
+$('.ui.checkbox').checkbox('attach events', '.toggle.button');
+$('.ui.radio.checkbox').checkbox();
+});  </script>
+
+
+</head>
+
+<body>
+
+{% include "cabecalho.html" %}
+
+{% if message == 'sucesso' %}
+{% include "adm/producao_sucesso.html" %}
+{% endif %}
+
+<h4 class="ui top attached block header">
+  <div class="ui breadcrumb">
+    <a class="section">Home</a>
+    <i class="right chevron icon divider"></i>
+    <a class="section">Gest&atilde;o de Alvos</a>
+    <i class="right arrow icon divider"></i>
+    <div class="active section">Produtividade</div>
+  </div>  
+</h4>
+
+<div class="ui bottom attached segment">
+
+
+<h4 class="ui horizontal divider header">
+  <i class="settings icon"></i>
+ Produ&ccedil;&atilde;o
+</h4>
+<form method="POST" action="" >
+{% csrf_token %}
+<table class="ui definition table">
+  <tbody>
+    <tr>
+      <td class="two wide column"><i class="configure icon"></i> Tipo de servi&ccedil;o</td>
+      <td>{{ form.tipo_servico }}</a></td>
+    </tr>
+    <tr>
+      <td><i class="male  icon"></i> T&eacute;cnico</td>
+      <td>{{ form.tecnico }}</td>
+    </tr>
+    <tr>
+      <td><i class="building  icon"></i> Instala&ccedil;&atilde;o</td>
+      <td>{{ form.instalacao }}</td>
+    </tr>
+    <tr>
+      <td><i class="map  icon"></i> Regional</td>
+      <td>{{ form.regional }}</td>
+    </tr>
+    <tr>
+      <td><i class="barcode  icon"></i> C&oacute;digo</td>
+      <td>{{ form.codigo }}</td>
+    </tr>
+    <tr>
+      <td><i class="calendar  icon"></i> Data realiza&ccedil;&atilde;o</td>
+      <td>{{ form.data_realizacao }}</td>
+    </tr>
+    <tr>
+      <td><i class="qrcode  icon"></i> Familia c&oacute;digo</td>
+      <td>{{ form.familia_codigo }}</td>
+    </tr>
+    <tr>
+      <td><i class="keyboard  icon"></i> Observa&ccedil;&atilde;o</td>
+      <td>{{ form.observacao }}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button type="submit" class="ui button">
+		  Enviar Servi&ccedil;o
+	  </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</form>
+
+
+     </div>
+
+</body>
+</html>
