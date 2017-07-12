@@ -245,6 +245,11 @@ def form_corrente_zerada(request):
          expira = request.POST.get('expira')
          batch = request.POST.get('batch')
          alvo_gerado = request.POST.get('alvo_gerado')
+         
+         if request.POST.get('alvo_gerado') is None:
+            alvo_gerado = False
+         else: 
+            alvo_gerado = True
 
          if expira not in ["agora","3M","6M","12M"]:
             return HttpResponse('ERRO! Uma data para expiracao deve ser escolhida<br><a href="/analysis/form_corrente_zerada/?id='+id+'">Voltar</a>')
@@ -313,6 +318,11 @@ def form_tensao_zerada(request):
          expira = request.POST.get('expira')
          batch = request.POST.get('batch')
          alvo_gerado = request.POST.get('alvo_gerado')
+         
+         if request.POST.get('alvo_gerado') is None:
+            alvo_gerado = False
+         else: 
+            alvo_gerado = True
 
          if expira not in ["agora","3M","6M","12M"]:
             return HttpResponse('ERRO! Uma data para expiracao deve ser escolhida<br><a href="/analysis/form_tensao_zerada/?id='+id+'">Voltar</a>')
