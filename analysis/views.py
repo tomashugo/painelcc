@@ -142,7 +142,7 @@ def produtividade(request):
       report_corrente_zerada.append(linha_corrente_zerada)
       report_tensao_zerada.append(linha_tensao_zerada)
       
-   return render(request,'analysis/produtividade.html',{'company_session':company_session,'report':report, 'report_mm_versus_consumo': report_mm_versus_consumo, 'report_queda_de_consumo': report_queda_de_consumo,'report_alteracoes_medidor': report_alteracoes_medidor,'report_corrente_zerada':report_corrente_zerada,'report_tensao_zerada':report_tensao_zerada,'dias':dias,'usuarios':usuarios,'dicionario':dicionario,})
+   return render(request,'analysis/produtividadev2.0.html',{'company_session':company_session,'report':report, 'report_mm_versus_consumo': report_mm_versus_consumo, 'report_queda_de_consumo': report_queda_de_consumo,'report_alteracoes_medidor': report_alteracoes_medidor,'report_corrente_zerada':report_corrente_zerada,'report_tensao_zerada':report_tensao_zerada,'dias':dias,'usuarios':usuarios,'dicionario':dicionario,})
 
 @login_required(login_url='/admin/login')
 def ver_produtividade(request,analista,diames):
@@ -158,7 +158,7 @@ def ver_produtividade(request,analista,diames):
    correntezerada = RelatorioCorrenteZerada.objects.all().filter(justificado = True).filter(user = analista).filter(data_hora__day = dia).filter(data_hora__month = mes).filter(data_hora__year = ano).filter(~Q(justificativa__contains = '!BATCH')).filter(company=company_session)
    tensaozerada = RelatorioTensaoZerada.objects.all().filter(justificado = True).filter(user = analista).filter(data_hora__day = dia).filter(data_hora__month = mes).filter(data_hora__year = ano).filter(~Q(justificativa__contains = '!BATCH')).filter(company=company_session)
 
-   return render(request,'analysis/ver_produtividade.html',{'company_session':company_session,'mmversusconsumo':mmversusconsumo,'quedadeconsumo':quedadeconsumo,'alteracoesmedidor':alteracoesmedidor,'correntezerada':correntezerada,'tensaozerada':tensaozerada,'analista':analista,})
+   return render(request,'analysis/ver_produtividadev2.0.html',{'company_session':company_session,'mmversusconsumo':mmversusconsumo,'quedadeconsumo':quedadeconsumo,'alteracoesmedidor':alteracoesmedidor,'correntezerada':correntezerada,'tensaozerada':tensaozerada,'analista':analista,})
 
 @login_required(login_url='/admin/login/')
 def index(request):
