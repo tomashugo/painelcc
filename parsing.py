@@ -69,7 +69,7 @@ if __name__ == "__main__":
             medidor = "33" + mm_string[0:8]
             medidor2 = "30" + mm_string[0:8]
             print medidor + " " + medidor2
-
+            
             medidor_ = Meter.objects.filter(Q(serial__startswith=medidor) | Q(serial__startswith=medidor2))
 
          if company.name == 'Celpa':
@@ -78,7 +78,7 @@ if __name__ == "__main__":
             medidor_ = Meter.objects.filter(Q(serial__startswith=mm_string[0:8]) | Q(serial__startswith=medidor2))
 
          if len(medidor_) == 0:
-            msg =  "Medidor " + medidor + " Nao Encontrado"
+            msg =  "Medidor " + medidor + " ou " + medidor2 + " Nao Encontrado"
             print msg
             print arq
             obj, created = Unprocessed.objects.get_or_create(archive=arq, msg= msg)
