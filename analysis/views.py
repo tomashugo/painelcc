@@ -489,7 +489,7 @@ def queda_consumo(request):
 
    outputs = []
 
-   alarms = RelatorioQuedaDeConsumo.objects.all().filter(justificado = False).order_by('consumer','-referencia').filter(company=company_session)
+   alarms = RelatorioQuedaDeConsumo.objects.all().filter(justificado = False).order_by('-referencia','consumer').filter(company=company_session)
 
    paginator = Paginator(alarms,200)
 
