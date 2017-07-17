@@ -9,10 +9,11 @@ class ProducaoAdmin(admin.ModelAdmin):
 
 class AlvosAbertosAdmin(admin.ModelAdmin):
    list_display = ['ns','consumer','data_geracao','observacao']
-   search_fields = ['consumer__installation','consumer__name']
+   search_fields = ['consumer__installation','consumer__name','ns']
 
 class AlvosDespachadosAdmin(admin.ModelAdmin):
    list_display = ['ns','consumer','inspetor','data_despacho']
+   search_fields = ['alvo_aberto__ns']
    
    def ns(self,obj):
       return obj.alvo_aberto.ns

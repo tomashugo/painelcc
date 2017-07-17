@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Q
 from .forms import ProducaoForm, AlvosAbertos
 import datetime
 from django.http import HttpResponse, HttpResponseRedirect
@@ -318,19 +319,26 @@ def alvos_nao_baixados(request):
 
    for p in producoes:
       output = Output()
+    
+      delta = datetime.timedelta(days=10)
+      alvo_aberto = AlvosAbertos.objects.all().filter(Q(data_geracao__lte = p.data_realizacao) | Q(data_geracao__lte = p.data_realizacao + delta)).filter(consumer__installation = p.instalacao) 
 
-      alvo_aberto = AlvosAbertos.objects.all().filter(data_geracao__lte = p.data_realizacao).filter(consumer__installation = p.instalacao)
+      if len(alvo_aberto) > 0:          
+         existe_alvo = 0
+         
+         for i in alvo_aberto:
+             inspection = Inspection.objects.all().filter(ns = i.ns)
+             
+             if len(inspection) != 0:
+                 existe_alvo = existe_alvo + 1
+             else:
+                 tmp = i
 
-      if len(alvo_aberto) == 1:
-         alvo_aberto = alvo_aberto.first()
-
-         inspection = Inspection.objects.all().filter(ns = alvo_aberto.ns)
-
-         if len(inspection) == 0:
-            output.data_geracao = alvo_aberto.data_geracao
-            output.consumer = alvo_aberto.consumer
-            output.observacao = alvo_aberto.observacao
-            output.ns = alvo_aberto.ns
+         if existe_alvo == 0:
+            output.data_geracao = i.data_geracao
+            output.consumer = i.consumer
+            output.observacao = i.observacao
+            output.ns = i.ns
             output.inspetor = p.tecnico
             output.data_realizacao = p.data_realizacao
             output.diferenca = datetime.datetime.now().date() - output.data_realizacao

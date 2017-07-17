@@ -293,7 +293,7 @@ def consumer_detail(request,consumer_id):
 
    for i in corrente_zerada:
       alarme = Alarmes()
-      alarme.referencia = i.inicio.date
+      alarme.referencia = i.inicio.date()
       alarme.justificativa = i.justificativa
       alarme.data_hora = i.data_hora
       alarme.tipo = "Corrente Zerada"
@@ -304,7 +304,7 @@ def consumer_detail(request,consumer_id):
 
    for i in tensao_zerada:
       alarme = Alarmes()
-      alarme.referencia = i.inicio.day
+      alarme.referencia = i.inicio.date()
       alarme.justificativa = i.justificativa
       alarme.data_hora = i.data_hora
       alarme.tipo = "Tensao Zerada"
