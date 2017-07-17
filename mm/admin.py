@@ -34,7 +34,7 @@ class ConsumerAdmin(admin.ModelAdmin):
        if len(meter) > 0:
           return meter.first()
 
-    list_display = ('company','installation','name',meter,'city','region','revenue',ultima_inspecao)
+    list_display = ('company','installation','name',meter,'city','public_place','reference','complement','region','revenue',ultima_inspecao)
     list_filter = ['region','revenue','company']
     search_fields = ['installation','name']
     inlines = [MeterHistoryInline,InspectionInline]

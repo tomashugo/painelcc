@@ -72,23 +72,11 @@ if __name__ == "__main__":
             region = Region.objects.get(name=region)
 	    already_installed = Consumer.objects.filter(company=company,installation=installation)
 
-	    if len(already_installed) == 0:
-	       consumer = Consumer()
-
-               consumer.company = company
-               consumer.installation = installation
-               consumer.name = name
-               consumer.meter = meter
+	    if len(already_installed) == 1:
+               consumer = already_installed.first()
+                        
                consumer.reference = reference
                consumer.public_place = public_place
                consumer.complement = complement
-               consumer.city = city
-               consumer.region = region
-	       consumer.revenue = revenue[0]
-
+            
                consumer.save()
-
-	       #print installation + " " + name + " " + meter + " " + city + " " + str(region_id) + " " + revenue
-
-      p.processed = True
-      p.save()

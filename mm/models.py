@@ -45,6 +45,9 @@ class Consumer(models.Model):
    city = models.CharField(max_length=50, blank=True)
    region = models.ForeignKey(Region,default=6)
    revenue = models.CharField(max_length=1, blank=True)
+   public_place = models.CharField(max_length=50,blank=True)
+   reference = models.CharField(max_length=200,blank=True)
+   complement = models.CharField(max_length=50,blank=True)
 
    class Meta:
       verbose_name = "Consumidor"
