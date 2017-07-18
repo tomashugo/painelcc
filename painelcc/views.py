@@ -346,6 +346,8 @@ def consumer_detail(request,consumer_id):
       alarmes.append(alarme)
 
    alarmes = sorted(alarmes,key = lambda x: x.referencia,reverse=True)
+   
+   mms = sorted(mms,key = lambda x: x.date_hour,reverse=True)
 
    context = { 'company_session': company_session, 'consumer' : consumer, 'inspections':inspections, 'grafico' : grafico, 'alarmes':alarmes, 'mms':mms,}
 
