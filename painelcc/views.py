@@ -158,13 +158,13 @@ def consumer_detail(request,consumer_id):
    company_session = Company.objects.get(name=request.session['Company'])
 
    consumer = Consumer.objects.get(id=consumer_id)
-   channel1_qty = Quantity.objects.get(quantity='kW')
-   channel2_qty = Quantity.objects.get(quantity='kVarI')
-   channel3_qty = Quantity.objects.get(quantity='kVarC')
+   #channel1_qty = Quantity.objects.get(quantity='kW')
+   #channel2_qty = Quantity.objects.get(quantity='kVarI')
+   #channel3_qty = Quantity.objects.get(quantity='kVarC')
 
-   history = consumer.history_set.all().filter(channel_1_qty=channel1_qty).filter(channel_2_qty=channel2_qty).filter(channel_3_qty=channel3_qty).order_by('date_hour')[:1440]
+   #history = consumer.history_set.all().filter(channel_1_qty=channel1_qty).filter(channel_2_qty=channel2_qty).filter(channel_3_qty=channel3_qty).order_by('date_hour')[:1440]
    inspections = consumer.inspection_set.all().order_by('-date_time_executed')
-
+   """
    for i in inspections:
       date_time_executed = i.date_time_executed
       try:
@@ -177,7 +177,17 @@ def consumer_detail(request,consumer_id):
             i.mms.append(mm)
       except AttributeError:
          pass
-
+   """
+   meterhistory=consumer.meterhistory_set.all()
+   mms=[]
+   for i in meterhistory:
+     meter = i.meter
+     lista = Mm.objects.all().filter(meter_object=meter).filter(date_hour__gte=i.since).filter(date_hour__lt=i.until)
+     for l in lista:
+         mms.append(l)
+            
+            
+            
    class Grafico(object):
       pass
 
@@ -337,7 +347,7 @@ def consumer_detail(request,consumer_id):
 
    alarmes = sorted(alarmes,key = lambda x: x.referencia,reverse=True)
 
-   context = { 'company_session': company_session, 'consumer' : consumer, 'history' : history, 'inspections':inspections, 'grafico' : grafico, 'alarmes':alarmes, }
+   context = { 'company_session': company_session, 'consumer' : consumer, 'inspections':inspections, 'grafico' : grafico, 'alarmes':alarmes, 'mms':mms,}
 
    if versao == "2.0":
       template = loader.get_template('consumer_detailv2.0.html')
