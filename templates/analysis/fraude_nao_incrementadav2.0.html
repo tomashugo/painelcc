@@ -77,6 +77,8 @@ $('.sortable.table').tablesort();
     <tr>
       <th>Instala&ccedil;&atilde;o</th>
       <th>Nome</th>
+      <th>Cidade</th>
+      <th>Regional</th>
       <th>M&ecirc;s Fraude</th>
       <th>C&oacute;digo Fraude</th>
       <th>Faturamento m-1</th>
@@ -89,6 +91,8 @@ $('.sortable.table').tablesort();
    <tr>
       <td><a href="/consumer/{{report.consumer.id}}/detail">{{ report.consumer.installation }}</a></td>
       <td>{{ report.consumer.name }}</td>
+      <td>{{ report.consumer.city }}</td>
+      <td>{{ report.consumer.region.name }}</td>
       <td>{{ report.mes_fraude|date:"m/Y" }}</td>
       <td>{{ report.code_fraude }}</td>
       <td>{{ report.faturamento_anterior }}</td>

@@ -703,10 +703,10 @@ def fraude_nao_incrementada(request):
    wb = Workbook()
    ws = wb.active
 
-   ws.append(['Instalacao','Nome','Mes Fraude','Code','Faturamento m-1','Faturamento m+1'])
+   ws.append(['Instalacao','Nome','Cidade','Regional','Mes Fraude','Code','Faturamento m-1','Faturamento m+1'])
 
    for output in outputs:
-      ws.append([output.consumer.installation,output.consumer.name,output.mes_fraude,output.code_fraude,output.faturamento_anterior,output.faturamento_posterior])
+      ws.append([output.consumer.installation,output.consumer.name,output.consumer.city,output.consumer.region.name,output.mes_fraude,output.code_fraude,output.faturamento_anterior,output.faturamento_posterior])
 
    xlsx = os.path.join("/home/tomash/painelcc/tmp",nome_arquivo+".xlsx")
    wb.save(xlsx)
