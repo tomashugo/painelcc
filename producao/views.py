@@ -15,6 +15,7 @@ from crews.models import Employee
 
 def index(request):
    message = request.GET.get('message')
+
    try:
        company_session = Company.objects.get(name=request.session['Company'])
    except KeyError:
@@ -181,7 +182,19 @@ def alvos_despachados(request):
 
    outputs = []
 
-   alarms = AlvosDespachados.objects.all().order_by('-alvo_aberto','-data_despacho')
+   
+   if request.method == 'GET':
+       alarms = AlvosDespachados.objects.all().order_by('-alvo_aberto','-data_despacho')[:100]
+   elif request.method == 'POST':
+       filtrar_inspetor = request.POST.get('filtrar_inspetor')
+       filtrar_prioridade = request.POST.get('filtrar_prioridade')
+       inspetor = request.POST.get('inspetor')
+       
+       if filtrar_inspetor:
+           alarms = AlvosDespachados.objects.all().filter(inspetor__id=inspetor)
+       else:
+           alarms = AlvosDespachados.objects.all().order_by('-alvo_aberto','-data_despacho')[:100]
+           
 
    id_anterior = 0
 
@@ -189,6 +202,18 @@ def alvos_despachados(request):
    ws = wb.active
 
    ws.append(['Ns','Data Geracao','Instalacao','Cliente','Localidade','Regional','Observacao','Data Despacho','Data Executado','Tempo Execucao','Inspetor'])
+
+   tecnicos = []
+   
+   lista_tecnicos = Employee.objects.all()
+   
+   for i in lista_tecnicos:
+       output = Output()
+       
+       output.id = i.id
+       output.nome = i.name
+       
+       tecnicos.append(output)
 
    for alarm in alarms:
       output = Output()
@@ -198,10 +223,12 @@ def alvos_despachados(request):
          output.observacao = alarm.alvo_aberto.observacao
          output.ns = alarm.alvo_aberto.ns  
          output.installation = alarm.alvo_aberto.consumer.installation
+         output.consumer_id = alarm.alvo_aberto.consumer.id
          output.name = alarm.alvo_aberto.consumer.name
          output.region = alarm.alvo_aberto.consumer.region.name     
          output.localidade = alarm.alvo_aberto.consumer.city
       else:
+         output.consumer_id = ""
          output.localidade = ""
          output.installation = ""
          output.name = ""
@@ -240,7 +267,7 @@ def alvos_despachados(request):
    versao = '2.0'
 
    if versao == '2.0':
-      return render(request,'producao/alvos_despachadosv2.0.html',{'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,})
+      return render(request,'producao/alvos_despachadosv2.0.html',{'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,'tecnicos':tecnicos,})
    else:
       return render(request,'producao/alvos_despachados.html',{'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,})
 

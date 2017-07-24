@@ -345,7 +345,7 @@ def consumer_detail(request,consumer_id):
 
       alarmes.append(alarme)
 
-   alarmes = sorted(alarmes,key = lambda x: x.referencia,reverse=True)
+   #alarmes = sorted(alarmes,key = lambda x: x.referencia,reverse=True)
    
    mms = sorted(mms,key = lambda x: x.date_hour,reverse=True)
 

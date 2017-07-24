@@ -47,14 +47,82 @@
 
   <!--- Example Javascript -->
 <script type="text/javascript">
-$('.sortable.table').tablesort();
-  </script>
+$(document).ready(function(){
+	$('.ui.checkbox')
+	  .checkbox()
+	;
+}); 
+ </script>
+ 
 </head>
 
 <body>
 
 {% include "cabecalho.html" %}
 
+<form method="POST" action="">
+{% csrf_token %}
+<div class="ui celled eight column centered grid">
+   <div class="row">
+	   <div class="two wide column"><b>Filtrar por</b></div>
+	   <div class="two wide column">
+		   <center>
+			    <div class="ui checkbox">
+		      			<input tabindex="0" class="hidden" type="checkbox" name="filtrar_inspetor">
+		      			<label><b>Inspetor</b></label>
+		        </div>
+		   </center>
+	   </div>
+	   <div class="three wide column">
+	   <center>
+	   	<select id="id_tecnico" name="inspetor">
+			<option value="" selected="selected">---------</option>
+			{% for tecnico in tecnicos %}
+			<option value="{{tecnico.id}}">{{ tecnico.nome }}</option>
+			{% endfor %}
+		</select>
+		</center>
+	   </div>
+	   <div class="two wide column">
+	   <center>
+		    <div class="ui checkbox">
+	      			<input tabindex="0" class="hidden" type="checkbox" name="filtrar_prioridade" value="AT">
+	      			<label><b>Prioridade</b></label>
+	        </div>
+	   </center>
+       </div>
+	   <div class="two wide column">
+	   <center>
+		    <div class="ui checkbox">
+	      			<input tabindex="0" class="hidden" type="checkbox" name="prioridade" value="AT">
+	      			<label>Alta</label>
+	        </div>
+	   </center>
+       </div>
+	   <div class="two wide column">
+	   <center>
+		   <div class="ui checkbox">
+	      			<input tabindex="0" class="hidden" type="checkbox" name="prioridade" value="MD">
+	      			<label>M&eacute;dia</label>
+	       </div>
+	   </center>
+       </div>
+	   <div class="two wide column">
+	   <center>
+		   <div class="ui checkbox centered">
+	      			<input tabindex="0" class="hidden" type="checkbox" name="prioridade" value="BX">
+	      			<label>Baixa</label>
+	        </div>
+	    </center>
+        </div>	
+        <div class="one wide column">
+	   <center>
+		   <input type="submit"  value="filtrar">		   
+	    </center>
+        </div>    
+   </div>
+</div>
+</form>
 
 <h4 class="ui top attached block header">
   <div class="ui breadcrumb">
@@ -93,7 +161,7 @@ $('.sortable.table').tablesort();
    <tr>
       <td>{{ report.ns }}</td>
       <td>{{ report.data_geracao }}</td>
-      <td>{{ report.installation }}</td>
+      <td><a href="/consumer/{{ report.consumer_id }}/detail">{{ report.installation }}</a></td>
       <td>{{ report.name }}</td>
       <td>{{ report.localidade }}</td>
       <td>{{ report.region }}</td>
@@ -106,7 +174,7 @@ $('.sortable.table').tablesort();
   {% endfor %}
   </tbody>
    <tfoot>
-    <tr><th colspan="10">
+    <tr><th colspan="11">
       <div class="ui right floated pagination menu">
         <a class="icon item">
           <i class="left chevron icon"></i>
