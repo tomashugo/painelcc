@@ -201,7 +201,7 @@ def alvos_despachados(request):
    wb = Workbook()
    ws = wb.active
 
-   ws.append(['Ns','Data Geracao','Instalacao','Cliente','Localidade','Regional','Observacao','Data Despacho','Data Executado','Tempo Execucao','Inspetor'])
+   ws.append(['Ns','Data Geracao','Instalacao','Cliente','Localidade','Regional','Observacao','Data Despacho','Inspetor'])
 
    tecnicos = []
    
@@ -245,19 +245,11 @@ def alvos_despachados(request):
       output.inspetor = alarm.inspetor
 
       executado = Inspection.objects.all().filter(ns=alarm.alvo_aberto.ns)
-      
-      if len(executado) > 0:
-         output.data_executado = executado.first().date_time_executed
-      else:
-         output.data_executado = ""
-      
-      if output.data_executado != "":
-         ws.append([alarm.alvo_aberto.ns,alarm.alvo_aberto.data_geracao,alarm.alvo_aberto.consumer.installation,alarm.alvo_aberto.consumer.name,alarm.alvo_aberto.consumer.city,alarm.alvo_aberto.consumer.region.name,alarm.alvo_aberto.observacao,alarm.data_despacho,output.data_executado,(output.data_executado.date()-alarm.data_despacho).days,unicode(alarm.inspetor)])
-      else:
-         ws.append([alarm.alvo_aberto.ns,alarm.alvo_aberto.data_geracao,alarm.alvo_aberto.consumer.installation,alarm.alvo_aberto.consumer.name,alarm.alvo_aberto.consumer.city,alarm.alvo_aberto.consumer.region.name,alarm.alvo_aberto.observacao,alarm.data_despacho,output.data_executado,"",unicode(alarm.inspetor)])
+              
+      if len(executado) == 0:               
+         ws.append([alarm.alvo_aberto.ns,alarm.alvo_aberto.data_geracao,alarm.alvo_aberto.consumer.installation,alarm.alvo_aberto.consumer.name,alarm.alvo_aberto.consumer.city,alarm.alvo_aberto.consumer.region.name,alarm.alvo_aberto.observacao,alarm.data_despacho,unicode(alarm.inspetor)])
 
-
-      outputs.append(output)
+         outputs.append(output)
 
 
    xlsx = os.path.join("/home/tomash/painelcc/tmp",nome_arquivo+".xlsx")
@@ -289,9 +281,11 @@ def stats(request):
    hoje = datetime.datetime.now()
 
    tempo_medio = dict()
+   inspetor_id = dict()
 
    for i in Employee.objects.all():
       tempo_medio[i] = []
+      inspetor_id[i.name] = i.id
 
    for alarm in alarms:
       diff = hoje.date()-alarm.data_despacho
@@ -312,6 +306,7 @@ def stats(request):
 
          output = Output()
          output.inspetor = str(keyvalue[0])
+         output.id = inspetor_id[output.inspetor]
          output.media = media
          output.quantidade = quantidade
          output.maior = maior

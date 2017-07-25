@@ -151,7 +151,6 @@ $(document).ready(function(){
       <th>Regional</th>
       <th>Observa&ccedil;&atilde;o</th>
       <th>Data Despachado</th>
-      <th>Data Executado</th>
       <th>Inspetor</th>
       <th></th>
     </tr>
@@ -167,14 +166,13 @@ $(document).ready(function(){
       <td>{{ report.region }}</td>
       <td>{{ report.observacao }}</td>
       <td>{{ report.data_despacho }}</td> 
-      <td>{{ report.data_executado|date:"d/m/Y" }}</td>
       <td>{{ report.inspetor }}</td>
       <td><i class="spy icon"></i><a href="/producao/form_alvos_abertos/?id={{report.id}}">Redespachar</a></td>
    </tr>
   {% endfor %}
   </tbody>
    <tfoot>
-    <tr><th colspan="11">
+    <tr><th colspan="10">
       <div class="ui right floated pagination menu">
         <a class="icon item">
           <i class="left chevron icon"></i>

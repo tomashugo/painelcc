@@ -42,6 +42,18 @@
   .ui.table {
     table-layout: fixed;
   }
+  
+  .asubmit {
+   background:none!important;
+     border:none; 
+     padding:0!important;
+    
+    /*optional*/
+    font-family:arial,sans-serif; /*input has OS specific font-family*/
+     color:#069;
+     text-decoration:underline;
+     cursor:pointer;
+  }
  
   </style>
 
@@ -84,7 +96,14 @@ $('.sortable.table').tablesort();
   <tbody>
   {% for report in outputs %}
    <tr>
-      <td>{{ report.inspetor }}</td>
+      <td>
+      <form method="POST" action="/producao/alvos_despachados/">
+      {% csrf_token %}
+        <input type="hidden" name="filtrar_inspetor" value="True">
+        <input type="hidden" name="inspetor" value="{{ report.id }}">        
+      	<input type="submit" class="asubmit" value="{{ report.inspetor }}">
+      </form>
+      </td>
       <td>{{ report.media }}</td>
       <td>{{ report.maior }}</td>
       <td>{{ report.quantidade }}</td>
