@@ -87,8 +87,8 @@ class Mm(models.Model):
    status_batery = models.CharField(max_length=2,blank=True,null=True)
    path = models.CharField(max_length=100,blank=True,null=True)
 
-   def __str__(self):
-      return self.archive
+   #def __str__(self):
+   #   return unicode(self.archive)
 
 class EnergyFault(models.Model):
    begin_hour = models.DateTimeField('inicio da falta')

@@ -72,11 +72,7 @@ $(document).ready(function(){
 
      <div class="ui category search">
        <div class="ui icon input">
-          <input name="q" class="prompt" placeholder="{% if query %}
- {{query}}
-{% else %}
-Consumidor...
-{% endif %}" type="text">
+          <input name="q" class="prompt" placeholder="{% if query %}{{query}}{% else %}Consumidor...{% endif %}" type="text">
           <i class="search icon"></i>
        </div>
      </div>

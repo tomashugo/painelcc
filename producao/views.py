@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from .forms import ProducaoForm, AlvosAbertos
 import datetime
@@ -182,9 +183,8 @@ def alvos_despachados(request):
 
    outputs = []
 
-   
    if request.method == 'GET':
-       alarms = AlvosDespachados.objects.all().order_by('-alvo_aberto','-data_despacho')[:100]
+       alarms = AlvosDespachados.objects.all().order_by('-alvo_aberto','-data_despacho')
    elif request.method == 'POST':
        filtrar_inspetor = request.POST.get('filtrar_inspetor')
        filtrar_prioridade = request.POST.get('filtrar_prioridade')
@@ -195,6 +195,53 @@ def alvos_despachados(request):
        else:
            alarms = AlvosDespachados.objects.all().order_by('-alvo_aberto','-data_despacho')[:100]
            
+
+   paginator = Paginator(alarms,200)
+   
+   page = request.GET.get('page')
+
+   if page is None:
+      page = 1
+
+   try:
+      alarms = paginator.page(page)
+   except PageNotAnInteger:
+      alarms = paginator.page(1)
+   except EmptyPage:
+      alarms = paginator.page(paginator.num_pages)
+      
+   paginas = []
+
+   num_pages = paginator.num_pages
+
+   a = range(1,num_pages)
+  
+   for i in a:
+      paginas.append(i)
+   
+   try:
+      while paginas[0] < int(page) - 2:
+         paginas.pop(0)
+   except IndexError:
+      pass
+
+   add = 0
+  
+   try:
+      if int(page) - paginas[0] < 2:
+         add = 2 - (int(page) - paginas[0])
+   except IndexError:
+      pass
+
+   try:
+      while paginas[-1] > int(page) + 2 + add:
+         paginas.pop()
+   except IndexError:
+      pass
+
+   if num_pages not in paginas:
+       paginas.append(num_pages)
+
 
    id_anterior = 0
 
@@ -255,11 +302,10 @@ def alvos_despachados(request):
    xlsx = os.path.join("/home/tomash/painelcc/tmp",nome_arquivo+".xlsx")
    wb.save(xlsx)
 
-   #versao = request.GET.get('versao')
    versao = '2.0'
 
    if versao == '2.0':
-      return render(request,'producao/alvos_despachadosv2.0.html',{'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,'tecnicos':tecnicos,})
+      return render(request,'producao/alvos_despachadosv2.0.html',{'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,'tecnicos':tecnicos,'paginas':paginas,'page':int(page),'alarms':alarms,})
    else:
       return render(request,'producao/alvos_despachados.html',{'company_session':company_session,'outputs': outputs,'arquivo': nome_arquivo,})
 
