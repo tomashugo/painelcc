@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^adm/',include('adm.urls')),
     url(r'^$',views.index,name='index'),
+    url(r'^dashboard/',views.dashboard,name='dashboard'),
     #url(r'^consumer/$',include('mm.urls')),
     url(r'^consumer/$',views.consumer,name='consumer'),
     url(r'^consumer/(?P<consumer_id>[0-9]+)/detail$',views.consumer_detail,name='consumer_detail'),

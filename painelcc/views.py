@@ -1,3 +1,4 @@
+from __future__ import division
 from django.http import HttpResponse
 from django.template import loader
 from mm.models import Consumer, Quantity
@@ -8,7 +9,9 @@ from datetime import timedelta
 from datetime import datetime
 from analysis.models import RelatorioMMVersusConsumo, RelatorioAlteracoesMedidor, RelatorioCorrenteZerada, RelatorioTensaoZerada, RelatorioQuedaDeConsumo, Billing, Inspection, RelatorioFraudeNaoIncrementada
 from mm.models import Mm, MeterHistory, Company
-from django.db.models import Q
+from django.db.models import Q, Count
+from producao.models import Producao
+from sets import Set
 
 from .forms import FormMM
 
@@ -367,6 +370,136 @@ def my_404(request):
 
 
 @login_required(login_url='/admin/login/')
+def dashboard(request):
+   company_session = Company.objects.get(name=request.session['Company'])
+   
+   consulta = Inspection.objects.all().filter(consumer__company = company_session).filter(code__startswith='1').filter(date_time_executed__year=2017)
+   
+   autuacoes = [0] * 12
+   
+   for i in consulta:
+       autuacoes[i.date_time_executed.month-1] = autuacoes[i.date_time_executed.month-1] + 1
+
+   consulta = Inspection.objects.all().filter(consumer__company = company_session).filter(date_time_executed__year=2017)
+   
+   inspecoes = [0] * 12
+   
+   for i in consulta:
+       inspecoes[i.date_time_executed.month-1] = inspecoes[i.date_time_executed.month-1] + 1
+
+   consulta = Inspection.objects.all().filter(consumer__company = company_session).filter(date_time_executed__year=2017).filter(Q(code__startswith='1') | Q(code__startswith='2') | Q(code='303') | Q(code='310'))
+   
+   normalizacoes = [0] * 12
+   
+   for i in consulta:
+       normalizacoes[i.date_time_executed.month-1] = normalizacoes[i.date_time_executed.month-1] + 1
+
+   consulta = Inspection.objects.all().filter(date_time_executed__year=2017).filter(consumer__company = company_session)
+   
+   produtividade = dict()
+   dias_trabalhados = dict()
+   
+   for i in consulta:
+       try:
+           dias_trabalhados[i.executor].add(i.date_time_executed)
+       except KeyError:
+           dias_trabalhados[i.executor] = Set()
+           dias_trabalhados[i.executor].add(i.date_time_executed)
+       
+       try:
+           produtividade[i.executor] = produtividade[i.executor] + 1
+       except KeyError:
+           produtividade[i.executor] = 1
+
+   class Output(object):
+      pass
+  
+   qt_dias_trabalhados = []
+   
+   for i, j in produtividade.items():
+       dumb = Output()
+       dumb.tecnico = i
+       dumb.quantidade = len(dias_trabalhados[i])
+       qt_dias_trabalhados.append(dumb)
+   
+   qt_dias_trabalhados = sorted(qt_dias_trabalhados,key = lambda x: x.quantidade,reverse=True)
+  
+   produtividades = []
+  
+   for i, j in produtividade.items():
+       dumb = Output()
+       dumb.tecnico = i
+       dumb.quantidade = j
+       produtividades.append(dumb)
+       
+   servicos_dia = []
+  
+   for i, j in produtividade.items():
+       dumb = Output()
+       dumb.tecnico = i
+       dumb.quantidade = j/len(dias_trabalhados[i])
+       servicos_dia.append(dumb)
+   
+   produtividades = sorted(produtividades,key = lambda x: x.quantidade,reverse=True)
+   
+   servicos_dia = sorted(servicos_dia,key = lambda x: x.quantidade,reverse=True)
+   
+   consulta = Inspection.objects.all().filter(date_time_executed__year=2017).filter(code__startswith='1').filter(consumer__company = company_session)
+   
+   fraude = dict()
+   
+   for i in consulta:
+       try:
+           fraude[i.executor] = fraude[i.executor] + 1
+       except KeyError:
+           fraude[i.executor] = 1
+  
+   fraudes = []
+  
+   for i, j in fraude.items():
+       dumb = Output()
+       dumb.tecnico = i
+       dumb.quantidade = j
+       fraudes.append(dumb)
+
+   fraudes = sorted(fraudes,key = lambda x: x.quantidade,reverse=True)
+
+   consulta = Inspection.objects.all().filter(date_time_executed__year=2017).filter(Q(code__startswith='1') | Q(code__startswith='2') | Q(code='303') | Q(code='310')).filter(consumer__company = company_session)
+   
+   normalizacao = dict()
+   
+   for i in consulta:
+       try:
+           normalizacao[i.executor] = normalizacao[i.executor] + 1
+       except KeyError:
+           normalizacao[i.executor] = 1
+  
+   normalizacoes_equipe = []
+  
+   for i, j in normalizacao.items():
+       dumb = Output()
+       dumb.tecnico = i
+       dumb.quantidade = j
+       normalizacoes_equipe.append(dumb)
+       
+       
+   normalizacao_dia = []
+  
+   for i, j in normalizacao.items():
+       dumb = Output()
+       dumb.tecnico = i
+       dumb.quantidade = j/len(dias_trabalhados[i])
+       normalizacao_dia.append(dumb)
+           
+   normalizacoes_equipe = sorted(normalizacoes_equipe,key = lambda x: x.quantidade,reverse=True)
+   normalizacao_dia = sorted(normalizacao_dia,key = lambda x: x.quantidade,reverse=True) 
+
+   context = {'company_session': company_session,  'autuacoes': autuacoes,'inspecoes': inspecoes,'normalizacoes': normalizacoes,'produtividades':produtividades,'fraudes':fraudes,'normalizacoes_equipe':normalizacoes_equipe,'qt_dias_trabalhados':qt_dias_trabalhados,'servicos_dia':servicos_dia,'normalizacao_dia':normalizacao_dia,}
+   template = loader.get_template('dashboard.html')
+
+   return HttpResponse(template.render(context,request))
+
+@login_required(login_url='/admin/login/')
 def mm(request,consumer_id):
    company_session = Company.objects.get(name=request.session['Company'])
 
@@ -418,5 +551,3 @@ def mm(request,consumer_id):
    template = loader.get_template('mm.html')
 
    return HttpResponse(template.render(context,request))
-
-

@@ -11,7 +11,7 @@ if __name__ == "__main__":
    application = get_wsgi_application()
 
    from django.db import models
-   from crews.models import Region
+   from crews.models import Region, Employee
    from mm.models import Consumer, Company
    from analysis.models import Inspection
    from adm.models import Type, Sheet
@@ -68,12 +68,17 @@ if __name__ == "__main__":
             except AttributeError:
                date_time_load = i[6].value
 
+            nome_inspetor = i[8].value
+
+            insp = Employee.objects.all().filter(name=nome_inspetor)
+            insp = insp.first()
+
             try:
                consumer = Consumer.objects.get(installation=installation,company=company)
                inspections = Inspection.objects.all().filter(ns=ns).filter(consumer=consumer)
                if len(inspections) == 0:
                   print consumer
-                  inspection,created = Inspection.objects.get_or_create(consumer=consumer,ns=ns,observation=observation,date_time_executed=date_time_executed,date_time_competence=date_time_competence,code=code,date_time_load=date_time_load)
+                  inspection,created = Inspection.objects.get_or_create(consumer=consumer,ns=ns,observation=observation,date_time_executed=date_time_executed,date_time_competence=date_time_competence,code=code,date_time_load=date_time_load,executor=insp)
                   #created.save()
             except Consumer.DoesNotExist:
                print "Cliente com instalacao " + str(installation) + " nao existente"

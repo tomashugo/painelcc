@@ -7,6 +7,9 @@
   </div>
   <a class="item" href="/"><i class="home icon"></i> Home</a>
   <a class="item" href="/consumer/"><i class="search icon"></i> Buscar Consumidor</a>
+  {% if company_session.name == 'Cemar' %}
+  <a class="item" href="/dashboard/"><i class="bar chart icon"></i> Dashboard</a>
+  {% endif %}
   <div class="right menu">
     {% if arquivo %}
     <a class="item" href="/analysis/download?arquivo={{arquivo}}.xlsx"><i class="download icon" style="color:#87cbac;"></i> Download Planilha</a>

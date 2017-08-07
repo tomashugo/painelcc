@@ -285,6 +285,10 @@ $('.sortable.table').tablesort();
       <td>{{ insp.ns }}</td>
     </tr>
     <tr>
+      <td>Inspetor</td>
+      <td>{% if insp.executor.name %}{{ insp.executor.name }}{% else %}&lt;N&Atilde;O CADASTRADO&gt;{% endif %}</td>
+    </tr>
+    <tr>
       <td>Codigo</td>
       <td>{{ insp.code }}</td>
     </tr>

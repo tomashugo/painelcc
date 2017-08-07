@@ -4,7 +4,7 @@ from django.db import models
 
 from mm.models import Consumer, Meter, Mm, Company
 
-from crews.models import Crew
+from crews.models import Crew, Employee
 
 # Create your models here.
 
@@ -46,6 +46,7 @@ class Inspection(models.Model):
     date_time_competence = models.DateTimeField('competencia da baixa',blank=True)
     date_time_load = models.DateTimeField('data da baixa')
     observation = models.TextField()
+    executor = models.ForeignKey(Employee,blank=True,null=True)
 
     class Meta:
         verbose_name = "Inspecao"

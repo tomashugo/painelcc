@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>painel.cc</title>
+
+  <!--- Site CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/reset.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/site.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/grid.css">
+
+  <!--- Component CSS -->
+  <link rel="stylesheet" type="text/css" href="/static/semantic/docs.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/icon.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/table.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/button.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic/dist/components/popup.css">
+  <link rel="stylesheet" type="text/css" class="ui" href="/static/semantic/dist/semantic.min.css">
+
+  <!--- Component JS -->
+  <script type="text/javascript" src="/static/semantic/jquery.min.js"></script>
+  <script type="text/javascript" src="/static/semantic/tablesort.js"></script>
+  <script type="text/javascript" src="/static/semantic/docs.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/semantic.js"></script>
+
+
+
+{% load to_exclamation %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+
+
+
+  <script src="../assets/library/iframe-content.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/popup.js"></script>
+  <script type="text/javascript" src="/static/semantic/dist/components/transition.js"></script>
+
+  <link rel="stylesheet/less" type="text/css" href="/static/theme.less" />
+
+  <!--- Show Names -->
+  <script src="../assets/show-examples.js"></script>
+
+  <!--- Example CSS -->
+  <style>
+  body {
+    padding: 1em;
+  }
+  .ui.table {
+    table-layout: fixed;
+  }
+  </style>
+
+  <!--- Example Javascript -->
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$('.menu .item')
+	  .tab()
+	;
+	
+});
+
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawBasic);
+google.charts.setOnLoadCallback(drawBasic2);
+google.charts.setOnLoadCallback(drawBasic3);
+google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawChart2);
+google.charts.setOnLoadCallback(drawChart3);
+google.charts.setOnLoadCallback(drawChart4);
+google.charts.setOnLoadCallback(drawChart5);
+google.charts.setOnLoadCallback(drawChart6);
+
+function drawBasic() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('date', 'Mes');
+      data.addColumn('number', 'Quantidade');
+
+      data.addRows([
+        [new Date(2017,0,1), {{autuacoes.0}}],
+        [new Date(2017,1,1), {{autuacoes.1}}],
+        [new Date(2017,2,1), {{autuacoes.2}}],
+        [new Date(2017,3,1), {{autuacoes.3}}],
+        [new Date(2017,4,1), {{autuacoes.4}}],
+        [new Date(2017,5,1), {{autuacoes.5}}],
+        [new Date(2017,6,1), {{autuacoes.6}}],
+        [new Date(2017,7,1), {{autuacoes.7}}],
+        [new Date(2017,8,1), {{autuacoes.8}}],
+        [new Date(2017,9,1), {{autuacoes.9}}],
+        [new Date(2017,10,1),{{autuacoes.10}}],
+        [new Date(2017,11,1),{{autuacoes.11}}]
+        ]);
+
+      var options = {
+        title: 'Fraudes Grupo A',        
+        hAxis: {
+          title: 'Meses do Ano',
+          format: 'MMM yy'
+        },
+        vAxis: {
+          title: 'Abrangencia - Cemar'
+        },
+        height: 500,
+        colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'],
+        is3D: true
+      };
+
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+    
+function drawBasic2() {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('date', 'Mes');
+    data.addColumn('number', 'Quantidade');
+
+    data.addRows([
+      [new Date(2017,0,1), {{inspecoes.0}}],
+      [new Date(2017,1,1), {{inspecoes.1}}],
+      [new Date(2017,2,1), {{inspecoes.2}}],
+      [new Date(2017,3,1), {{inspecoes.3}}],
+      [new Date(2017,4,1), {{inspecoes.4}}],
+      [new Date(2017,5,1), {{inspecoes.5}}],
+      [new Date(2017,6,1), {{inspecoes.6}}],
+      [new Date(2017,7,1), {{inspecoes.7}}],
+      [new Date(2017,8,1), {{inspecoes.8}}],
+      [new Date(2017,9,1), {{inspecoes.9}}],
+      [new Date(2017,10,1),{{inspecoes.10}}],
+      [new Date(2017,11,1),{{inspecoes.11}}]
+      ]);
+
+    var options = {
+      title: 'Inspecoes Grupo A',        
+      hAxis: {
+        title: 'Meses do Ano',
+        format: 'MMM yy'
+      },
+      vAxis: {
+        title: 'Abrangencia - Cemar'
+      },
+      height: 500,
+      colors: ['#5abcb9'],
+      is3D: true
+    };
+
+    var chart = new google.visualization.ColumnChart(
+      document.getElementById('chart_div2'));
+
+    chart.draw(data, options);
+  }
+  
+  
+function drawBasic3() {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('date', 'Mes');
+    data.addColumn('number', 'Quantidade');
+
+    data.addRows([
+      [new Date(2017,0,1), {{normalizacoes.0}}],
+      [new Date(2017,1,1), {{normalizacoes.1}}],
+      [new Date(2017,2,1), {{normalizacoes.2}}],
+      [new Date(2017,3,1), {{normalizacoes.3}}],
+      [new Date(2017,4,1), {{normalizacoes.4}}],
+      [new Date(2017,5,1), {{normalizacoes.5}}],
+      [new Date(2017,6,1), {{normalizacoes.6}}],
+      [new Date(2017,7,1), {{normalizacoes.7}}],
+      [new Date(2017,8,1), {{normalizacoes.8}}],
+      [new Date(2017,9,1), {{normalizacoes.9}}],
+      [new Date(2017,10,1),{{normalizacoes.10}}],
+      [new Date(2017,11,1),{{normalizacoes.11}}]
+      ]);
+
+    var options = {
+      title: 'Normalizacoes Grupo A',        
+      hAxis: {
+        title: 'Meses do Ano',
+        format: 'MMM yy'
+      },
+      vAxis: {
+        title: 'Abrangencia - Cemar'
+      },
+      height: 500,
+      colors: ['#20063b'],
+      is3D: true
+    };
+
+    var chart = new google.visualization.ColumnChart(
+      document.getElementById('chart_div3'));
+
+    chart.draw(data, options);
+  }
+
+function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Equipe", "Quantidade", { role: "style" } ],
+        {% for i in produtividades %}
+        ["{{i.tecnico}}", {{i.quantidade}}, "#aafac8"],
+        {% endfor %}
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Servicos",      
+        height: 500,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+  }
+  
+  
+function drawChart2() {
+    var data = google.visualization.arrayToDataTable([
+      ["Equipe", "Quantidade", { role: "style" } ],
+      {% for i in fraudes %}
+      ["{{i.tecnico}}", {{i.quantidade}}, "#92afd7"],
+      {% endfor %}
+    ]);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                     { calc: "stringify",
+                       sourceColumn: 1,
+                       type: "string",
+                       role: "annotation" },
+                     2]);
+
+    var options = {
+      title: "Fraudes",      
+      height: 500,
+      bar: {groupWidth: "95%"},
+      legend: { position: "none" },
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values2"));
+    chart.draw(view, options);
+}
+
+
+function drawChart3() {
+    var data = google.visualization.arrayToDataTable([
+      ["Equipe", "Quantidade", { role: "style" } ],
+      {% for i in normalizacoes_equipe %}
+      ["{{i.tecnico}}", {{i.quantidade}}, "#686868"],
+      {% endfor %}
+    ]);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                     { calc: "stringify",
+                       sourceColumn: 1,
+                       type: "string",
+                       role: "annotation" },
+                     2]);
+
+    var options = {
+      title: "Normalizacoes",      
+      height: 500,
+      bar: {groupWidth: "95%"},
+      legend: { position: "none" },
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values3"));
+    chart.draw(view, options);
+}
+
+function drawChart4() {
+    var data = google.visualization.arrayToDataTable([
+      ["Equipe", "Quantidade", { role: "style" } ],
+      {% for i in qt_dias_trabalhados %}
+      ["{{i.tecnico}}", {{i.quantidade}}, "#97f9f9"],
+      {% endfor %}
+    ]);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                     { calc: "stringify",
+                       sourceColumn: 1,
+                       type: "string",
+                       role: "annotation" },
+                     2]);
+
+    var options = {
+      title: "Dias Trabalhados (somente inspecao)",      
+      height: 500,
+      bar: {groupWidth: "95%"},
+      legend: { position: "none" },
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values4"));
+    chart.draw(view, options);
+}
+
+function drawChart5() {
+    var data = google.visualization.arrayToDataTable([
+      ["Equipe", "Quantidade", { role: "style" } ],
+      {% for i in servicos_dia %}
+      ["{{i.tecnico}}", {{i.quantidade}}, "#d6d9ce"],
+      {% endfor %}
+    ]);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                     { calc: "stringify",
+                       sourceColumn: 1,
+                       type: "string",
+                       role: "annotation" },
+                     2]);
+
+    var options = {
+      title: "Servicos / Dia (somente inspecao)",      
+      height: 500,
+      bar: {groupWidth: "95%"},
+      legend: { position: "none" },
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values5"));
+    chart.draw(view, options);
+}
+
+function drawChart6() {
+    var data = google.visualization.arrayToDataTable([
+      ["Equipe", "Quantidade", { role: "style" } ],
+      {% for i in normalizacao_dia %}
+      ["{{i.tecnico}}", {{i.quantidade}}, "#931621"],
+      {% endfor %}
+    ]);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                     { calc: "stringify",
+                       sourceColumn: 1,
+                       type: "string",
+                       role: "annotation" },
+                     2]);
+
+    var options = {
+      title: "Normalizacao / Dia",      
+      height: 500,
+      bar: {groupWidth: "95%"},
+      legend: { position: "none" },
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values6"));
+    chart.draw(view, options);
+}
+  </script>
+
+
+</head>
+
+<body>
+
+{% include "cabecalho.html" %}
+
+<div>
+
+<h4 class="ui top attached block header">
+   <div class="ui breadcrumb">
+     <a class="section">Home</a>
+     <i class="right chevron icon divider"></i>
+     <div class="active section">
+     Dashboard
+   </div>
+</h4>
+
+<div class="ui bottom attached segment">
+
+<div class="ui top attached tabular menu">
+  <a class="item active" data-tab="cemar">Cemar</a>
+  <a class="item" data-tab="norte">Norte</a>
+  <a class="item" data-tab="centro">Centro</a>
+  <a class="item" data-tab="leste">Leste</a>
+  <a class="item" data-tab="sul">Sul</a>
+</div>
+<div class="ui bottom attached tab segment active" data-tab="cemar">
+	<h4 class="ui horizontal divider header"><i class="unhide icon"></i> Inspe&ccedil;&otilde;es</h4> 
+	<div id="chart_div2"></div>
+	<h4 class="ui horizontal divider header"><i class="bomb icon"></i> Fraudes</h4> 
+	<div id="chart_div"></div>
+	<h4 class="ui horizontal divider header"><i class="configure icon"></i> Normaliza&ccedil;&otilde;es</h4> 
+	<div id="chart_div3"></div>
+	<h4 class="ui horizontal divider header"><i class="user icon"></i> Produtividade Servi&ccedil;os</h4> 
+	<div id="columnchart_values"></div>
+	<div id="columnchart_values2"></div>
+	<div id="columnchart_values3"></div>
+	<div id="columnchart_values4"></div>
+	<div id="columnchart_values5"></div>
+	<div id="columnchart_values6"></div>
+</div>
+<div class="ui bottom attached tab segment" data-tab="norte">Norte </div>
+<div class="ui bottom attached tab segment" data-tab="centro">Centro </div>
+<div class="ui bottom attached tab segment" data-tab="leste">Leste </div>
+<div class="ui bottom attached tab segment" data-tab="sul">Sul </div>
+
+ </div>
+</div>
+
+</body>
+</html>

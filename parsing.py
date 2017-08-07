@@ -36,10 +36,11 @@ if __name__ == "__main__":
       nome_diretorio = d.directory
       arquivos = os.listdir(nome_diretorio)
 
-
       quantidade_arquivos = 1
 
       for arq in arquivos:
+         # criar os threads
+         # dividir as mmms
 
          print nome_diretorio
 
