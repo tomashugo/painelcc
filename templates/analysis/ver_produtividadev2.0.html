@@ -102,7 +102,7 @@ $('.ui.radio.checkbox').checkbox();
 <div class="ui hidden divider"></div>
 {% for i in correntezerada %}
 <div>
-	<p><b>Instalacao:</b> <a href="/consumer/{{i.consumer.id}}/detail?versao=2.0">{{i.consumer.installation}}</a></p><p><b>Cliente:</b> {{i.consumer.name}}</p>
+	<p><b>Instalacao:</b> <a href="/consumer/{{i.consumer.id}}/detail">{{i.consumer.installation}}</a></p><p><b>Cliente:</b> {{i.consumer.name}}</p>
 	<p><b>Inicio:</b> {{ i.inicio }}</p>
 	<p><b>Fim:</b> {{ i.fim }}</p>
 	<p><b>Justificativa:</b> {{i.justificativa}}</p>
@@ -141,7 +141,7 @@ $('.ui.radio.checkbox').checkbox();
 <div class="ui hidden divider"></div>
 {% for i in quedadeconsumo %}
 <div>
-	<p><b>Instalacao:</b> <a href="/consumer/{{i.consumer.id}}/detail?versao=2.0">{{i.consumer.installation}}</a></p>
+	<p><b>Instalacao:</b> <a href="/consumer/{{i.consumer.id}}/detail">{{i.consumer.installation}}</a></p>
 	<p><b>Cliente:</b> {{i.consumer.name}}</p>
 	<p><b>Referencia:</b> {{ i.referencia }}</p>
 	<p><b>Media anterior:</b> {{ i.media_consumo }}</p>

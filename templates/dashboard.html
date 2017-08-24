@@ -75,6 +75,7 @@ google.charts.setOnLoadCallback(drawChart3);
 google.charts.setOnLoadCallback(drawChart4);
 google.charts.setOnLoadCallback(drawChart5);
 google.charts.setOnLoadCallback(drawChart6);
+google.charts.setOnLoadCallback(drawChart7);
 
 function drawBasic() {
 
@@ -357,6 +358,33 @@ function drawChart6() {
     var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values6"));
     chart.draw(view, options);
 }
+
+
+function drawChart7() {
+    var data = google.visualization.arrayToDataTable([
+      ["Equipe", "Quantidade", { role: "style" } ],
+      {% for i in codigos %}
+      ["{{i.codigo}}", {{i.quantidade}}, "#931621"],
+      {% endfor %}
+    ]);
+
+    var view = new google.visualization.DataView(data);
+    view.setColumns([0, 1,
+                     { calc: "stringify",
+                       sourceColumn: 1,
+                       type: "string",
+                       role: "annotation" },
+                     2]);
+
+    var options = {
+      title: "Codigos",      
+      height: 500,
+      bar: {groupWidth: "95%"},
+      legend: { position: "none" },
+    };
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values7"));
+    chart.draw(view, options);
+}
   </script>
 
 
@@ -379,18 +407,40 @@ function drawChart6() {
 
 <div class="ui bottom attached segment">
 
-<div class="ui top attached tabular menu">
-  <a class="item active" data-tab="cemar">Cemar</a>
-  <a class="item" data-tab="norte">Norte</a>
-  <a class="item" data-tab="centro">Centro</a>
-  <a class="item" data-tab="leste">Leste</a>
-  <a class="item" data-tab="sul">Sul</a>
-</div>
-<div class="ui bottom attached tab segment active" data-tab="cemar">
+<div class="ui bottom attached tab segment active">
 	<h4 class="ui horizontal divider header"><i class="unhide icon"></i> Inspe&ccedil;&otilde;es</h4> 
 	<div id="chart_div2"></div>
 	<h4 class="ui horizontal divider header"><i class="bomb icon"></i> Fraudes</h4> 
 	<div id="chart_div"></div>
+	<div id="columnchart_values7"></div>
+	<div class="ui divided selection list">
+	    <div class="ui red horizontal label">Legenda</div>
+	</div>
+	<table class="ui red table">
+	  <thead>
+	    <tr><th>115</th>
+	    <th>164</th>
+	    <th>165</th>
+	    <th>171</th>
+	    <th>131</th>
+	    <th>136</th>
+	    <th>156</th>
+	    <th>143</th>
+	  </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td>Medidor Avariado</td>	  
+	      <td>Desvio Embutido</td>
+	      <td>Desvio</td>
+	      <td>Auto-Relig. Com Perda</td>
+	      <td>Irregularidade no Tc</td>
+	      <td>Circ. TP/TC Interromp.</td>
+	      <td>Irreg. Na Chave de Afer.</td>
+	      <td>Irregularidade no Tp</td>
+	    </tr>
+	  </tbody>
+	</table>
 	<h4 class="ui horizontal divider header"><i class="configure icon"></i> Normaliza&ccedil;&otilde;es</h4> 
 	<div id="chart_div3"></div>
 	<h4 class="ui horizontal divider header"><i class="user icon"></i> Produtividade Servi&ccedil;os</h4> 
@@ -401,10 +451,6 @@ function drawChart6() {
 	<div id="columnchart_values5"></div>
 	<div id="columnchart_values6"></div>
 </div>
-<div class="ui bottom attached tab segment" data-tab="norte">Norte </div>
-<div class="ui bottom attached tab segment" data-tab="centro">Centro </div>
-<div class="ui bottom attached tab segment" data-tab="leste">Leste </div>
-<div class="ui bottom attached tab segment" data-tab="sul">Sul </div>
 
  </div>
 </div>

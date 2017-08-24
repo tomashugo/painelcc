@@ -38,10 +38,11 @@ if __name__ == "__main__":
 
       quantidade_arquivos = 1
 
+      data_hora_diretorio = float(d.data_hora.strftime("%s"))
+
       for arq in arquivos:
          # criar os threads
          # dividir as mmms
-
          print nome_diretorio
 
          if arq.find('&') == -1:
@@ -54,6 +55,12 @@ if __name__ == "__main__":
 
          caminho_arq = nome_diretorio + "/" + arq
 
+         data_hora_arquivo = os.stat(caminho_arq).st_mtime
+         
+         if data_hora_arquivo > data_hora_diretorio:
+             print "#### arquivo ja cadastrado ####"
+             continue
+
          mm_string = ""
          for linhas in open(caminho_arq):
             mm_string = mm_string + linhas.split('\r\n')[0]
@@ -61,6 +68,7 @@ if __name__ == "__main__":
          mms = Mm.objects.filter(archive=arq)
 
          if len(mms) == 1:
+            os.utime(caminho_arq,None)
             print "Mm ja cadastrada"
             continue
 
@@ -70,7 +78,7 @@ if __name__ == "__main__":
             medidor = "33" + mm_string[0:8]
             medidor2 = "30" + mm_string[0:8]
             print medidor + " " + medidor2
-            
+
             medidor_ = Meter.objects.filter(Q(serial__startswith=medidor) | Q(serial__startswith=medidor2))
 
          if company.name == 'Celpa':
@@ -88,7 +96,7 @@ if __name__ == "__main__":
             medidor = medidor_.first()
 
          leitor = mm_string[8:14]
-  
+
          try:
             hora_leitura = int(mm_string[14:16])
             minuto_leitura =  int(mm_string[16:18])
@@ -285,6 +293,7 @@ if __name__ == "__main__":
 
          if created:
             arq_publico.save()
+            os.utime(caminho_arq,None)
          else:
             continue
 

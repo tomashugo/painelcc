@@ -47,7 +47,9 @@
 
   <!--- Example Javascript -->
 <script type="text/javascript">
-$('.sortable.table').tablesort();
+$(document).ready(function(){
+	$('.sortable.table').tablesort();
+	});
   </script>
 </head>
 
@@ -72,7 +74,7 @@ $('.sortable.table').tablesort();
 {% include "producao/sucesso.html" %}
 {% endif %}
 
-<table class="ui celled table">
+<table class="ui sortable celled table">
   <thead>
     <tr>
       <th>NS</th>

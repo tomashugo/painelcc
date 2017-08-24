@@ -377,11 +377,15 @@ def dashboard(request):
    
    autuacoes = [0] * 12
    
+   mes = request.GET.get('mes')
+   
    for i in consulta:
        autuacoes[i.date_time_executed.month-1] = autuacoes[i.date_time_executed.month-1] + 1
 
+
    consulta = Inspection.objects.all().filter(consumer__company = company_session).filter(date_time_executed__year=2017)
    
+     
    inspecoes = [0] * 12
    
    for i in consulta:
@@ -447,8 +451,14 @@ def dashboard(request):
    consulta = Inspection.objects.all().filter(date_time_executed__year=2017).filter(code__startswith='1').filter(consumer__company = company_session)
    
    fraude = dict()
+   codigo = dict()
    
    for i in consulta:
+       try:
+           codigo[i.code] = codigo[i.code] + 1
+       except KeyError:
+           codigo[i.code] = 1
+           
        try:
            fraude[i.executor] = fraude[i.executor] + 1
        except KeyError:
@@ -463,6 +473,16 @@ def dashboard(request):
        fraudes.append(dumb)
 
    fraudes = sorted(fraudes,key = lambda x: x.quantidade,reverse=True)
+   
+   codigos = []
+   
+   for i, j in codigo.items():
+       dumb = Output()
+       dumb.codigo = i
+       dumb.quantidade = j
+       codigos.append(dumb)
+       
+   codigos = sorted(codigos,key = lambda x: x.quantidade,reverse=True)
 
    consulta = Inspection.objects.all().filter(date_time_executed__year=2017).filter(Q(code__startswith='1') | Q(code__startswith='2') | Q(code='303') | Q(code='310')).filter(consumer__company = company_session)
    
@@ -494,7 +514,7 @@ def dashboard(request):
    normalizacoes_equipe = sorted(normalizacoes_equipe,key = lambda x: x.quantidade,reverse=True)
    normalizacao_dia = sorted(normalizacao_dia,key = lambda x: x.quantidade,reverse=True) 
 
-   context = {'company_session': company_session,  'autuacoes': autuacoes,'inspecoes': inspecoes,'normalizacoes': normalizacoes,'produtividades':produtividades,'fraudes':fraudes,'normalizacoes_equipe':normalizacoes_equipe,'qt_dias_trabalhados':qt_dias_trabalhados,'servicos_dia':servicos_dia,'normalizacao_dia':normalizacao_dia,}
+   context = {'company_session': company_session,  'autuacoes': autuacoes,'inspecoes': inspecoes,'normalizacoes': normalizacoes,'produtividades':produtividades,'fraudes':fraudes,'normalizacoes_equipe':normalizacoes_equipe,'qt_dias_trabalhados':qt_dias_trabalhados,'servicos_dia':servicos_dia,'normalizacao_dia':normalizacao_dia,'codigos':codigos,}
    template = loader.get_template('dashboard.html')
 
    return HttpResponse(template.render(context,request))

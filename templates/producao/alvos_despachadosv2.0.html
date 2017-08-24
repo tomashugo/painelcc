@@ -51,6 +51,7 @@ $(document).ready(function(){
 	$('.ui.checkbox')
 	  .checkbox()
 	;
+	$('.sortable.table').tablesort();
 }); 
  </script>
  
@@ -140,7 +141,7 @@ $(document).ready(function(){
 {% include "producao/sucesso.html" %}
 {% endif %}
 
-<table class="ui celled table">
+<table class="ui sortable celled table">
   <thead>
     <tr>
       <th>NS</th>
